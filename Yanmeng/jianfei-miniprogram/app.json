@@ -11,6 +11,7 @@
     "pages/measure/measure",
     "pages/knowledge/knowledge",
     "pages/challenge/challenge",
+    "pages/diary/diary",
     "pages/agreement/agreement"
   ],
   "darkmode": true,

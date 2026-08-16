@@ -155,6 +155,10 @@ Page({
     wx.navigateTo({ url: '/pages/challenge/challenge' });
   },
 
+  goDiary() {
+    wx.navigateTo({ url: '/pages/diary/diary' });
+  },
+
   onField(e) {
     const field = e.currentTarget.dataset.field;
     const patch = {};

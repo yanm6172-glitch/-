@@ -8,6 +8,7 @@ Page({
     input: '',
     focusInput: false,
     predictText: '--',
+    measureSub: '体重不动时，围度告诉你脂肪在减',
     list: [],
     chart: [],
     settings: { height: 168, startWeight: 100, targetWeight: 65, weeklyGoal: 0.75 },
@@ -76,8 +77,20 @@ Page({
       pct: pct,
       months: months,
       total: total.toFixed(1),
-      predictText: smart.predictText()
+      predictText: smart.predictText(),
+      measureSub: this.measureSummary()
     });
+  },
+
+  measureSummary() {
+    const measures = wx.getStorageSync('measures') || { list: [] };
+    const ml = measures.list || [];
+    if (!ml.length || !ml[ml.length - 1].waist) return '体重不动时，围度告诉你脂肪在减';
+    const latest = ml[ml.length - 1];
+    const first = ml[0];
+    const d = +(latest.waist - first.waist).toFixed(1);
+    const sign = d <= 0 ? '−' : '+';
+    return '最新腰围 ' + latest.waist + ' cm · 较首次 ' + sign + Math.abs(d).toFixed(1) + ' cm';
   },
 
   onInput(e) {

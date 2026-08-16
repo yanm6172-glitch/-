@@ -193,7 +193,7 @@ Page({
       return;
     }
     const kcal = Math.round((r.kcal100 * grams) / 100);
-    this.addFood({ name: r.name, kcal100: r.kcal100, grams: Math.round(grams), kcal: kcal, source: 'photo' });
+    this.addFood({ name: r.name, kcal100: r.kcal100, grams: Math.round(grams), kcal: kcal, source: 'photo', image: r.fileID || '' });
     this.setData({ photoResult: null, photoGrams: '', photoText: '' });
     wx.showToast({ title: '已计入 ' + kcal + ' 千卡', icon: 'success' });
   },
@@ -485,6 +485,10 @@ Page({
     const f = this.data.results[i];
     if (!f) return;
     this.quickAdd(f.n, f.c);
+  },
+
+  goDiary() {
+    wx.navigateTo({ url: '/pages/diary/diary' });
   },
 
   onShareAppMessage() {

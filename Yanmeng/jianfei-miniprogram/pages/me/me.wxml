@@ -176,6 +176,14 @@
         </view>
         <text class="entry-arrow">›</text>
       </view>
+      <view class="entry-row" bindtap="goDiary">
+        <view class="entry-ico">📸</view>
+        <view class="entry-main">
+          <view class="entry-title">饮食日记</view>
+          <view class="entry-sub">拍食物记录的照片时间轴</view>
+        </view>
+        <text class="entry-arrow">›</text>
+      </view>
     </view>
   </view>
 
@@ -212,7 +220,7 @@
     <view class="card-head">
       <text class="card-title">ℹ️ 关于</text>
     </view>
-    <view class="tip">减重打卡 v1.8.0</view>
+    <view class="tip">减重打卡 v1.9.0</view>
     <view class="row">
       <text class="link" bindtap="goAgreement">《用户协议》</text>
       <text class="link" bindtap="goPrivacy">《隐私政策》</text>

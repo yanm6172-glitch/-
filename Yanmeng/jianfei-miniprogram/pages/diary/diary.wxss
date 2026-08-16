@@ -1,0 +1,68 @@
+.date-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8rpx 0 12rpx;
+}
+
+.date-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.date-sub {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.d-item {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f1f2f1;
+}
+
+.d-item:last-child {
+  border-bottom: none;
+}
+
+.d-img {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 16rpx;
+  background: #f3f4f6;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.d-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.d-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.d-sub {
+  font-size: 24rpx;
+  color: #9ca3af;
+  margin-top: 6rpx;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .date-label,
+  .d-name {
+    color: #e5e7eb;
+  }
+  .d-item {
+    border-bottom-color: #374151;
+  }
+  .d-img {
+    background: #374151;
+  }
+}

@@ -172,4 +172,16 @@
     <view wx:if="{{foods.length == 0}}" class="empty">今天还没记录食物，扫码或手动添加吧</view>
   </view>
 
+  <!-- 饮食日记入口 -->
+  <view class="card">
+    <view class="entry-row" bindtap="goDiary">
+      <view class="entry-ico">📸</view>
+      <view class="entry-main">
+        <view class="entry-title">饮食日记</view>
+        <view class="entry-sub">拍食物记录的照片自动形成时间轴</view>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+
 </view>
