@@ -39,6 +39,8 @@ Page({
     photoResult: null,
     photoGrams: '',
     photoError: '',
+    photoText: '',
+    photoReviewing: false,
     // 收藏
     favfoods: [],
     favOn: false,
@@ -147,7 +149,7 @@ Page({
       success(res) {
         const temp = res.tempFiles && res.tempFiles[0] ? res.tempFiles[0].tempFilePath : '';
         if (!temp) return;
-        that.setData({ photoLoading: true, photoError: '', photoResult: null });
+        that.setData({ photoLoading: true, photoError: '', photoResult: null, photoText: '' });
         wx.cloud.uploadFile({
           cloudPath: 'photos/' + Date.now() + '_' + Math.floor(Math.random() * 1000) + '.jpg',
           filePath: temp,
@@ -158,7 +160,7 @@ Page({
                 if (v.ok) {
                   that.setData({
                     photoLoading: false,
-                    photoResult: { name: v.name, grams: v.grams, kcal100: v.kcal100, kcal: v.kcal, image: temp },
+                    photoResult: { name: v.name, grams: v.grams, kcal100: v.kcal100, kcal: v.kcal, image: temp, fileID: up.fileID },
                     photoGrams: String(v.grams)
                   });
                 } else {
@@ -192,8 +194,35 @@ Page({
     }
     const kcal = Math.round((r.kcal100 * grams) / 100);
     this.addFood({ name: r.name, kcal100: r.kcal100, grams: Math.round(grams), kcal: kcal, source: 'photo' });
-    this.setData({ photoResult: null, photoGrams: '' });
+    this.setData({ photoResult: null, photoGrams: '', photoText: '' });
     wx.showToast({ title: '已计入 ' + kcal + ' 千卡', icon: 'success' });
+  },
+
+  /* ---- AI 点评这顿饭 ---- */
+  reviewPhoto() {
+    const r = this.data.photoResult;
+    if (!r || !r.fileID) {
+      wx.showToast({ title: '先拍一张食物照片', icon: 'none' });
+      return;
+    }
+    if (this.data.photoReviewing) return;
+    const that = this;
+    this.setData({ photoReviewing: true });
+    wx.cloud.callFunction({ name: 'vision', data: { action: 'review', fileID: r.fileID } })
+      .then(function (res) {
+        that.setData({ photoReviewing: false });
+        const v = res.result || {};
+        if (v.ok) {
+          that.setData({ photoText: v.text || '这顿饭整体不错，继续保持！' });
+          wx.showToast({ title: '点评完成', icon: 'success' });
+        } else {
+          wx.showModal({ title: '点评失败', content: (v.msg || '请稍后再试'), showCancel: false });
+        }
+      })
+      .catch(function () {
+        that.setData({ photoReviewing: false });
+        wx.showModal({ title: '点评失败', content: 'vision 云函数未部署或网络异常。', showCancel: false });
+      });
   },
 
   favPhoto() {

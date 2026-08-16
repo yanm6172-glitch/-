@@ -1,0 +1,111 @@
+.hero {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(22, 163, 74, 0.25);
+}
+
+.hero-top {
+  display: flex;
+  align-items: center;
+}
+
+.hero-ico {
+  font-size: 56rpx;
+  margin-right: 20rpx;
+}
+
+.hero-main {
+  flex: 1;
+}
+
+.hero-name {
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.hero-desc {
+  font-size: 22rpx;
+  opacity: 0.85;
+  margin-top: 4rpx;
+}
+
+.hero-progress {
+  height: 14rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 7rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+}
+
+.hero-progress-in {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 7rpx;
+}
+
+.hero-stat {
+  font-size: 24rpx;
+  opacity: 0.95;
+  margin-top: 12rpx;
+}
+
+.day-row {
+  display: flex;
+  margin-top: 16rpx;
+}
+
+.day-chip {
+  flex: 1;
+  text-align: center;
+  font-size: 28rpx;
+  padding: 6rpx 0;
+  border-radius: 12rpx;
+  background: rgba(255, 255, 255, 0.2);
+  margin-right: 8rpx;
+}
+
+.day-chip:last-child {
+  margin-right: 0;
+}
+
+.day-chip.pass {
+  background: #ffffff;
+}
+
+.hero-result {
+  font-size: 26rpx;
+  font-weight: 600;
+  margin-top: 16rpx;
+}
+
+.quit-link {
+  font-size: 22rpx;
+  opacity: 0.85;
+  text-align: right;
+  margin-top: 14rpx;
+  text-decoration: underline;
+}
+
+.ch-item {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f1f2f1;
+}
+
+.ch-item:last-child {
+  border-bottom: none;
+}
+
+.doing-tag {
+  color: #16a34a;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .ch-item {
+    border-bottom-color: #374151;
+  }
+}

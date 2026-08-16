@@ -48,6 +48,12 @@
           <button size="mini" bindtap="addPhoto">计入</button>
           <button size="mini" class="btn-gray" bindtap="favPhoto">⭐收藏</button>
         </view>
+        <view class="review-row">
+          <button size="mini" class="btn-gray" bindtap="reviewPhoto" loading="{{photoReviewing}}" disabled="{{photoReviewing}}">
+            {{photoReviewing ? '点评中…' : '🤖 AI 点评这顿饭'}}
+          </button>
+        </view>
+        <view wx:if="{{photoText}}" class="ai-box">{{photoText}}</view>
       </view>
     </view>
     <view wx:if="{{photoError}}" class="scan-error">{{photoError}}</view>

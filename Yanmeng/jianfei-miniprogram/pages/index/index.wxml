@@ -92,6 +92,14 @@
       </view>
       <text class="entry-arrow">›</text>
     </view>
+    <view class="entry-row" bindtap="goChallenge">
+      <view class="entry-ico">🎯</view>
+      <view class="entry-main">
+        <view class="entry-title">7天减脂挑战</view>
+        <view class="entry-sub">无奶茶 · 八千步 · 喝水2L · 不吃夜宵，自动判定</view>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
   </view>
 
   <!-- 热量入口 -->
@@ -128,6 +136,7 @@
       <button size="mini" class="btn-gray" bindtap="waterMinus">−250</button>
       <text class="tip-inline">点格子记水量，每格 250ml</text>
     </view>
+    <view wx:if="{{waterCelebrate}}" class="water-celebrate">🎉 今日喝水达标！</view>
   </view>
 
   <!-- 步数 -->

@@ -151,6 +151,10 @@ Page({
     wx.navigateTo({ url: '/pages/measure/measure' });
   },
 
+  goChallenge() {
+    wx.navigateTo({ url: '/pages/challenge/challenge' });
+  },
+
   onField(e) {
     const field = e.currentTarget.dataset.field;
     const patch = {};

@@ -1,0 +1,51 @@
+<view class="page">
+
+  <!-- 当前挑战 -->
+  <view wx:if="{{status}}" class="card hero">
+    <view class="hero-top">
+      <view class="hero-ico">{{status.challenge.icon}}</view>
+      <view class="hero-main">
+        <view class="hero-name">{{status.challenge.name}}</view>
+        <view class="hero-desc">{{status.challenge.desc}}</view>
+      </view>
+    </view>
+    <view class="hero-progress">
+      <view class="hero-progress-in" style="width:{{status.doneDays / 7 * 100}}%"></view>
+    </view>
+    <view class="hero-stat">已完成 {{status.doneDays}}/7 天 · 达标 {{status.passDays}} 天 · 失败 {{status.failDays}} 天</view>
+    <view class="day-row">
+      <view
+        wx:for="{{status.days}}"
+        wx:key="key"
+        class="day-chip {{item.state}}"
+      >{{item.state === 'pass' ? '✅' : (item.state === 'fail' ? '❌' : (item.state === 'pending' ? '⏳' : '·'))}}</view>
+    </view>
+    <view class="hero-result" wx:if="{{status.result === 'success'}}">🎉 挑战成功！你太自律了</view>
+    <view class="hero-result" wx:if="{{status.result === 'failed'}}">😤 本次未达成，别灰心，重新开始再来一次</view>
+    <view class="quit-link" bindtap="quitChallenge">放弃本次挑战</view>
+  </view>
+
+  <!-- 挑战列表 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🎯 选择 7 天挑战</text>
+      <text class="card-num">全程自动判定</text>
+    </view>
+    <view class="ch-item" wx:for="{{all}}" wx:key="id">
+      <view class="entry-ico">{{item.icon}}</view>
+      <view class="entry-main">
+        <view class="entry-title">{{item.name}}</view>
+        <view class="entry-sub">{{item.desc}}</view>
+      </view>
+      <button
+        wx:if="{{!active || active.id !== item.id}}"
+        size="mini"
+        data-id="{{item.id}}"
+        bindtap="startChallenge"
+      >开始</button>
+      <text wx:else class="doing-tag">进行中</text>
+    </view>
+    <view class="tip">挑战基于你的打卡数据自动判定：奶茶/夜宵看食物记录，其余看每日打卡，无需手动签到。</view>
+  </view>
+
+</view>

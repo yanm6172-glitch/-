@@ -53,6 +53,28 @@
   margin-bottom: 12rpx;
 }
 
+.review-row {
+  margin-top: 8rpx;
+}
+
+.ai-box {
+  margin-top: 12rpx;
+  background: #f0fdf4;
+  border-radius: 16rpx;
+  padding: 16rpx 20rpx;
+  font-size: 24rpx;
+  color: #374151;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+@media (prefers-color-scheme: dark) {
+  .ai-box {
+    background: #14532d;
+    color: #d1d5db;
+  }
+}
+
 .half-btn {
   flex: 1;
   font-weight: 600;

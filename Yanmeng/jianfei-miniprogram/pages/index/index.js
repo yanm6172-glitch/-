@@ -58,6 +58,8 @@ Page({
     checked: false,
     score: 0,
     missedText: '',
+    // 喝水达标动画
+    waterCelebrate: false,
     // AI 点评
     aiLoading: false,
     aiText: ''
@@ -141,12 +143,21 @@ Page({
   },
 
   /* ---- 喝水 ---- */
+  celebrateWater() {
+    const that = this;
+    if (this.data.water >= 2000 && !this.data.waterCelebrate) {
+      this.setData({ waterCelebrate: true });
+      setTimeout(function () { that.setData({ waterCelebrate: false }); }, 2600);
+    }
+  },
+
   setWater(e) {
     const i = Number(e.currentTarget.dataset.i);
     const water = (i + 1) * 250;
     this.setData({ water: water });
     this.saveDay({ water: water });
     this.refreshTips();
+    this.celebrateWater();
   },
 
   waterMinus() {
@@ -154,6 +165,7 @@ Page({
     this.setData({ water: water });
     this.saveDay({ water: water });
     this.refreshTips();
+    this.celebrateWater();
   },
 
   /* ---- 步数 ---- */
@@ -323,6 +335,10 @@ Page({
 
   goMeasure() {
     wx.navigateTo({ url: '/pages/measure/measure' });
+  },
+
+  goChallenge() {
+    wx.navigateTo({ url: '/pages/challenge/challenge' });
   },
 
   /* ---- AI 饮食点评 ---- */

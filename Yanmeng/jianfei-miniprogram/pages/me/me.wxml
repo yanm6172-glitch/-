@@ -168,6 +168,14 @@
         </view>
         <text class="entry-arrow">›</text>
       </view>
+      <view class="entry-row" bindtap="goChallenge">
+        <view class="entry-ico">🎯</view>
+        <view class="entry-main">
+          <view class="entry-title">7天减脂挑战</view>
+          <view class="entry-sub">自动判定，坚持就有成就感</view>
+        </view>
+        <text class="entry-arrow">›</text>
+      </view>
     </view>
   </view>
 
@@ -204,7 +212,7 @@
     <view class="card-head">
       <text class="card-title">ℹ️ 关于</text>
     </view>
-    <view class="tip">减重打卡 v1.7.0</view>
+    <view class="tip">减重打卡 v1.8.0</view>
     <view class="row">
       <text class="link" bindtap="goAgreement">《用户协议》</text>
       <text class="link" bindtap="goPrivacy">《隐私政策》</text>
