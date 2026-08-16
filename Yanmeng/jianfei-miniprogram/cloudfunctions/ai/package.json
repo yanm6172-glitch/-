@@ -1,0 +1,9 @@
+{
+  "name": "ai",
+  "version": "1.0.0",
+  "description": "AI 饮食点评（文本大模型）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

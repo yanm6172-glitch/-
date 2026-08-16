@@ -143,6 +143,14 @@ Page({
     wx.navigateTo({ url: '/pages/news/news' });
   },
 
+  goKnowledge() {
+    wx.navigateTo({ url: '/pages/knowledge/knowledge' });
+  },
+
+  goMeasure() {
+    wx.navigateTo({ url: '/pages/measure/measure' });
+  },
+
   onField(e) {
     const field = e.currentTarget.dataset.field;
     const patch = {};

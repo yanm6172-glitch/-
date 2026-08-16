@@ -1,0 +1,130 @@
+.hero {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(22, 163, 74, 0.25);
+}
+
+.hero-row {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.hero-item {
+  flex: 1;
+}
+
+.hero-num {
+  font-size: 44rpx;
+  font-weight: 700;
+}
+
+.hero-label {
+  font-size: 22rpx;
+  opacity: 0.85;
+  margin-top: 6rpx;
+}
+
+.hero-tip {
+  font-size: 24rpx;
+  opacity: 0.95;
+  margin-top: 20rpx;
+}
+
+.hero-tip2 {
+  font-size: 22rpx;
+  opacity: 0.85;
+  margin-top: 8rpx;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.form-label {
+  width: 160rpx;
+  font-size: 26rpx;
+  color: #374151;
+}
+
+.form-row .input {
+  flex: 1;
+}
+
+.save-btn {
+  margin-top: 20rpx;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 16rpx;
+}
+
+.chart-wrap {
+  display: flex;
+  align-items: flex-end;
+  height: 260rpx;
+  padding: 16rpx 0 8rpx;
+}
+
+.bar-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bar {
+  width: 56%;
+  min-height: 10rpx;
+  border-radius: 8rpx 8rpx 0 0;
+  background: #16a34a;
+}
+
+.bar-val {
+  font-size: 20rpx;
+  color: #6b7280;
+  margin-bottom: 6rpx;
+}
+
+.bar-label {
+  font-size: 20rpx;
+  color: #9ca3af;
+  margin-top: 8rpx;
+}
+
+.h-date {
+  width: 90rpx;
+  color: #6b7280;
+  font-size: 26rpx;
+}
+
+.h-main {
+  flex: 1;
+  font-weight: 600;
+  font-size: 26rpx;
+}
+
+.h-sub {
+  color: #9ca3af;
+  font-size: 22rpx;
+}
+
+.clear-link {
+  color: #9ca3af;
+  font-size: 24rpx;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .form-label,
+  .h-main {
+    color: #e5e7eb;
+  }
+  .bar-val {
+    color: #9ca3af;
+  }
+}

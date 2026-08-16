@@ -8,6 +8,8 @@
     "pages/me/me",
     "pages/achieve/achieve",
     "pages/news/news",
+    "pages/measure/measure",
+    "pages/knowledge/knowledge",
     "pages/agreement/agreement"
   ],
   "darkmode": true,

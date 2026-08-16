@@ -1,0 +1,96 @@
+.hero {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(22, 163, 74, 0.25);
+}
+
+.hero-title {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-sub {
+  font-size: 24rpx;
+  opacity: 0.85;
+  margin-top: 10rpx;
+}
+
+.cat-chips {
+  white-space: nowrap;
+  margin-bottom: 16rpx;
+}
+
+.cat-chip {
+  display: inline-block;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+  padding: 8rpx 26rpx;
+  margin-right: 14rpx;
+}
+
+.cat-chip.active {
+  background: #16a34a;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.k-item {
+  border-bottom: 1rpx solid #f1f2f1;
+  padding: 8rpx 0;
+}
+
+.k-item:last-child {
+  border-bottom: none;
+}
+
+.k-head {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+}
+
+.k-body {
+  background: #f0fdf4;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin: 4rpx 0 16rpx 0;
+}
+
+.k-tip {
+  display: flex;
+  align-items: flex-start;
+  padding: 8rpx 0;
+}
+
+.k-dot {
+  color: #16a34a;
+  font-weight: 700;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.k-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #374151;
+  line-height: 1.7;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .cat-chip {
+    background: #374151;
+    color: #d1d5db;
+  }
+  .k-item {
+    border-bottom-color: #374151;
+  }
+  .k-body {
+    background: #14532d;
+  }
+  .k-text {
+    color: #d1d5db;
+  }
+}

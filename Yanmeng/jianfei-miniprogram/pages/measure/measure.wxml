@@ -1,0 +1,82 @@
+<view class="page">
+
+  <!-- 概览 -->
+  <view class="card hero">
+    <view class="hero-row">
+      <view class="hero-item">
+        <view class="hero-num">{{latest && latest.waist ? latest.waist : '--'}}</view>
+        <view class="hero-label">腰围 cm</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{latest && latest.hip ? latest.hip : '--'}}</view>
+        <view class="hero-label">臀围 cm</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{whr || '--'}}</view>
+        <view class="hero-label">腰臀比</view>
+      </view>
+    </view>
+    <view class="hero-tip">{{whrText}}</view>
+    <view class="hero-tip2">{{tipText}}</view>
+  </view>
+
+  <!-- 记录围度 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📏 记录围度（cm）</text>
+    </view>
+    <view class="form-row">
+      <text class="form-label">腰围</text>
+      <input class="input" type="digit" placeholder="肚脐上方 2cm 处" value="{{waist}}" data-field="waist" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">臀围</text>
+      <input class="input" type="digit" placeholder="臀部最宽处" value="{{hip}}" data-field="hip" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">胸围</text>
+      <input class="input" type="digit" placeholder="可选" value="{{chest}}" data-field="chest" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">大腿围</text>
+      <input class="input" type="digit" placeholder="可选" value="{{thigh}}" data-field="thigh" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">手臂围</text>
+      <input class="input" type="digit" placeholder="可选" value="{{arm}}" data-field="arm" bindinput="onField" />
+    </view>
+    <button class="save-btn" bindtap="save">保存围度</button>
+    <view class="tip">同一天重复记录会覆盖。建议每周和称重同一天量一次，早晨空腹最准。</view>
+  </view>
+
+  <!-- 腰围趋势 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📉 腰围趋势（最近8次）</text>
+      <text class="card-num {{waistDelta <= 0 ? 'ok' : 'over'}}">{{waistDelta}} cm</text>
+    </view>
+    <view wx:if="{{chart.length > 0}}" class="chart-wrap">
+      <view class="bar-col" wx:for="{{chart}}" wx:key="label">
+        <text class="bar-val">{{item.value}}</text>
+        <view class="bar" style="height:{{item.h}}%"></view>
+        <text class="bar-label">{{item.label}}</text>
+      </view>
+    </view>
+    <view wx:else class="empty">还没有围度记录，先在上面记一次吧</view>
+  </view>
+
+  <!-- 历史 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📋 历史记录</text>
+      <text class="clear-link" bindtap="clearAll">清空</text>
+    </view>
+    <view class="list-item" wx:for="{{list}}" wx:key="date">
+      <text class="h-date">{{item.label}}</text>
+      <text class="h-main">腰 {{item.waist || '--'}} · 臀 {{item.hip || '--'}}</text>
+      <text class="h-sub">{{item.chest ? '胸 ' + item.chest : ''}}{{item.thigh ? ' · 腿 ' + item.thigh : ''}}{{item.arm ? ' · 臂 ' + item.arm : ''}}</text>
+    </view>
+    <view wx:if="{{list.length == 0}}" class="empty">暂无记录</view>
+  </view>
+
+</view>

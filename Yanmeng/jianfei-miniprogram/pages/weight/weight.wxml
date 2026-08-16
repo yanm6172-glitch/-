@@ -31,6 +31,18 @@
     <view class="tip">每周称重 1 次，数据越多预测越准</view>
   </view>
 
+  <!-- 围度入口 -->
+  <view class="card">
+    <view class="entry-row" bindtap="goMeasure">
+      <view class="entry-ico">📏</view>
+      <view class="entry-main">
+        <view class="entry-title">围度记录</view>
+        <view class="entry-sub">体重不动时，围度告诉你脂肪在减</view>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+
   <!-- 记录体重 -->
   <view class="card">
     <view class="card-head">

@@ -1,0 +1,40 @@
+<view class="page">
+
+  <!-- 顶部说明 -->
+  <view class="card hero">
+    <view class="hero-title">📚 健康小课堂</view>
+    <view class="hero-sub">每天学一点，少走弯路 · 内容为通用健康建议</view>
+  </view>
+
+  <!-- 分类 -->
+  <view class="card">
+    <scroll-view scroll-x class="cat-chips">
+      <view
+        class="cat-chip {{catIdx === index ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="*this"
+        data-i="{{index}}"
+        bindtap="onCat"
+      >{{item}}</view>
+    </scroll-view>
+    <view class="k-list">
+      <view class="k-item" wx:for="{{items}}" wx:key="id">
+        <view class="k-head" data-id="{{item.id}}" bindtap="toggle">
+          <view class="entry-ico">{{item.icon}}</view>
+          <view class="entry-main">
+            <view class="entry-title">{{item.title}}</view>
+            <view class="entry-sub">{{item.tips.length}} 条要点</view>
+          </view>
+          <text class="entry-arrow">{{expandedId === item.id ? '⌄' : '›'}}</text>
+        </view>
+        <view wx:if="{{expandedId === item.id}}" class="k-body">
+          <view class="k-tip" wx:for="{{item.tips}}" wx:for-item="tip" wx:key="*this">
+            <text class="k-dot">·</text>
+            <text class="k-text">{{tip}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

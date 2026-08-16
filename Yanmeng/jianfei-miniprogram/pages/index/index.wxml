@@ -56,7 +56,7 @@
     </view>
   </view>
 
-  <!-- 今日建议 -->
+  <!-- 今日建议 + AI 点评 -->
   <view class="card">
     <view class="card-head">
       <text class="card-title">💡 今日建议</text>
@@ -65,6 +65,32 @@
     <view class="tip-item" wx:for="{{tips}}" wx:key="*this">
       <text class="tip-dot"></text>
       <text class="tip-text">{{item}}</text>
+    </view>
+    <view class="ai-btn-row">
+      <button class="ai-btn" size="mini" bindtap="askAI" loading="{{aiLoading}}" disabled="{{aiLoading}}">
+        {{aiLoading ? 'AI 思考中…' : '🤖 AI 点评今日饮食'}}
+      </button>
+    </view>
+    <view wx:if="{{aiText}}" class="ai-box">{{aiText}}</view>
+  </view>
+
+  <!-- 知识与围度入口 -->
+  <view class="card">
+    <view class="entry-row" bindtap="goKnowledge">
+      <view class="entry-ico">📚</view>
+      <view class="entry-main">
+        <view class="entry-title">健康小课堂</view>
+        <view class="entry-sub">211餐盘 · 平台期破解 · 外食法则 · 睡眠与减脂</view>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+    <view class="entry-row" bindtap="goMeasure">
+      <view class="entry-ico">📏</view>
+      <view class="entry-main">
+        <view class="entry-title">围度记录</view>
+        <view class="entry-sub">腰围/臀围/腰臀比，平台期看它更准</view>
+      </view>
+      <text class="entry-arrow">›</text>
     </view>
   </view>
 

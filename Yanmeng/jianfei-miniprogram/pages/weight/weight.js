@@ -138,6 +138,10 @@ Page({
     this.setData({ focusInput: true });
   },
 
+  goMeasure() {
+    wx.navigateTo({ url: '/pages/measure/measure' });
+  },
+
   clearAll() {
     const that = this;
     wx.showModal({

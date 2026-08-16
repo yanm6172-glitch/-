@@ -57,7 +57,10 @@ Page({
     // 打卡
     checked: false,
     score: 0,
-    missedText: ''
+    missedText: '',
+    // AI 点评
+    aiLoading: false,
+    aiText: ''
   },
 
   onLoad() {
@@ -97,6 +100,7 @@ Page({
     const calTotal = Math.round(foods.reduce(function (s, f) { return s + (f.kcal || 0); }, 0));
     const calGoal = Number(settings.dailyCalorie) || 1500;
     const calPct = Math.min(100, Math.round((calTotal / calGoal) * 100));
+    const aiReview = wx.getStorageSync('aiReview') || {};
 
     this.setData({
       today: today,
@@ -124,7 +128,8 @@ Page({
       calGoal: calGoal,
       calPct: calPct,
       checked: !!d.checked,
-      score: d.score || 0
+      score: d.score || 0,
+      aiText: aiReview.date === today ? (aiReview.text || '') : ''
     });
   },
 
@@ -310,6 +315,67 @@ Page({
 
   goCalorie() {
     wx.switchTab({ url: '/pages/calorie/calorie' });
+  },
+
+  goKnowledge() {
+    wx.navigateTo({ url: '/pages/knowledge/knowledge' });
+  },
+
+  goMeasure() {
+    wx.navigateTo({ url: '/pages/measure/measure' });
+  },
+
+  /* ---- AI 饮食点评 ---- */
+  askAI() {
+    const config = require('../../utils/config.js');
+    if (!(config.cloudEnv && config.cloudEnv !== 'YOUR-ENV-ID' && wx.cloud)) {
+      wx.showModal({
+        title: 'AI 点评需要云开发',
+        content: '请先开通云开发并部署 ai 云函数（README 第 4 步）。',
+        showCancel: false
+      });
+      return;
+    }
+    const dailies = wx.getStorageSync('dailies') || {};
+    const d = dailies[this.data.today] || {};
+    const foods = d.foods || [];
+    if (!foods.length) {
+      wx.showToast({ title: '先去「热量」页记录今天吃的', icon: 'none' });
+      return;
+    }
+    if (this.data.aiLoading) return;
+    this.setData({ aiLoading: true });
+    const settings = wx.getStorageSync('settings') || {};
+    const goal = Number(settings.dailyCalorie) || 1500;
+    const lines = [
+      '今日摄入热量：' + this.data.calTotal + ' / ' + goal + ' 千卡',
+      '饮水：' + (d.water || 0) + 'ml',
+      '步数：' + (d.steps || 0),
+      '运动：' + (d.exMin || 0) + '分钟'
+    ];
+    foods.forEach(function (f) {
+      lines.push('食物：' + f.name + ' ' + f.grams + 'g ' + f.kcal + '千卡');
+    });
+    if (this.data.currentWeight != null) {
+      lines.push('当前体重：' + this.data.currentWeight + 'kg，目标 ' + (settings.targetWeight || 65) + 'kg');
+    }
+    const that = this;
+    wx.cloud.callFunction({ name: 'ai', data: { text: lines.join('\n') } })
+      .then(function (r) {
+        that.setData({ aiLoading: false });
+        const v = r.result || {};
+        if (v.ok) {
+          that.setData({ aiText: v.text });
+          wx.setStorageSync('aiReview', { date: that.data.today, text: v.text });
+          wx.showToast({ title: '点评完成', icon: 'success' });
+        } else {
+          wx.showModal({ title: '点评失败', content: (v.msg || '请稍后再试') + '。请确认 ai 云函数已部署。', showCancel: false });
+        }
+      })
+      .catch(function () {
+        that.setData({ aiLoading: false });
+        wx.showModal({ title: '点评失败', content: 'ai 云函数未部署或网络异常，稍后再试。', showCancel: false });
+      });
   },
 
   goMe() {
