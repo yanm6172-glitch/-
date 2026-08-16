@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 3ceaccb52f0006e48a7bf80fd472fbb0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - touchLineX: {fileID: 7882850426720281747, guid: fcfb8fa992896984e9b3531a89bc8559, type: 3}
+  - touchLineY: {fileID: 7882850426720281747, guid: 100d0751fa499c94fb4ec3bf3c152643, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
