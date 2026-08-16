@@ -85,6 +85,35 @@
     </view>
   </view>
 
+  <!-- 体重·腰围对比 -->
+  <view class="card" wx:if="{{pairs.length > 0}}">
+    <view class="card-head">
+      <text class="card-title">📊 体重 · 腰围对比</text>
+    </view>
+    <view class="dual-row">
+      <text class="dual-tag">体重</text>
+      <view class="dual-bars">
+        <view class="dbar-col" wx:for="{{pairs}}" wx:key="label">
+          <view class="dbar w" style="height:{{item.wH}}%"></view>
+          <text class="dbar-val">{{item.wVal}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="dual-row">
+      <text class="dual-tag">腰围</text>
+      <view class="dual-bars">
+        <view class="dbar-col" wx:for="{{pairs}}" wx:key="label">
+          <view class="dbar m" style="height:{{item.mH}}%"></view>
+          <text class="dbar-val">{{item.mVal || ''}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="dual-labels">
+      <text class="dlab" wx:for="{{pairs}}" wx:key="label">{{item.label}}</text>
+    </view>
+    <view class="tip">同一日期对比：体重不动但腰围在降 = 脂肪在减。腰围空白表示近 7 天没量。</view>
+  </view>
+
   <!-- 历史记录 -->
   <view class="card">
     <view class="card-head">

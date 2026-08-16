@@ -89,6 +89,11 @@
   margin-right: 12rpx;
 }
 
+.time-box.fixed-tag {
+  color: #9ca3af;
+  flex: 0 0 auto;
+}
+
 /* 账号资料卡 */
 .profile-top {
   display: flex;

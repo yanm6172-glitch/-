@@ -6,7 +6,9 @@ const DEFAULT_SET = {
   waterTime: '15:00',
   weighOn: false,
   weighTime: '08:00',
-  weighDay: 1 // 1=周一 ... 7=周日
+  weighDay: 1, // 1=周一 ... 7=周日
+  weeklyOn: false,
+  weeklyTime: '08:00'
 };
 
 function getSet() {
@@ -30,6 +32,7 @@ function templateIds(rs) {
   const ids = [];
   if (rs.waterOn && validId(config.remind.water.id)) ids.push(config.remind.water.id);
   if (rs.weighOn && validId(config.remind.weigh.id)) ids.push(config.remind.weigh.id);
+  if (rs.weeklyOn && validId(config.remind.weekly.id)) ids.push(config.remind.weekly.id);
   return ids;
 }
 
@@ -73,6 +76,13 @@ function buildTickets(rs, accepted) {
     const data = JSON.parse(JSON.stringify(g.data));
     if (data.time2) data.time2.value = rs.weighTime || '08:00';
     tickets.push({ tmplId: g.id, sendAt: nextWeekday(rs.weighDay || 1, t.h, t.m), data: data });
+  }
+  const wk = config.remind.weekly;
+  if (rs.weeklyOn && accepted[wk.id] === 'accept') {
+    const t = parseTime(rs.weeklyTime);
+    const data = JSON.parse(JSON.stringify(wk.data));
+    if (data.time2) data.time2.value = '每周一 ' + (rs.weeklyTime || '08:00');
+    tickets.push({ type: 'weekly', tmplId: wk.id, sendAt: nextWeekday(1, t.h, t.m), data: data });
   }
   return tickets;
 }

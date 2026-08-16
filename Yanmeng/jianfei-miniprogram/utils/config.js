@@ -26,6 +26,14 @@ module.exports = {
         thing1: { value: '每周称重时间到，起床空腹称' },
         time2: { value: '08:00' }
       }
+    },
+    // 周报推送：thing1 的内容由云函数在发送时自动生成（本周数据总结），这里只给默认值
+    weekly: {
+      id: 'WEEKLY_TMPL_ID',
+      data: {
+        thing1: { value: '本周总结' },
+        time2: { value: '每周一 08:00' }
+      }
     }
   }
 };

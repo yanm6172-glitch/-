@@ -9,6 +9,7 @@ Page({
     focusInput: false,
     predictText: '--',
     measureSub: '体重不动时，围度告诉你脂肪在减',
+    pairs: [],
     list: [],
     chart: [],
     settings: { height: 168, startWeight: 100, targetWeight: 65, weeklyGoal: 0.75 },
@@ -56,6 +57,24 @@ Page({
       return { label: r.label, h: h, value: r.weight, down: r.delta != null && r.delta <= 0 };
     });
 
+    // 体重·腰围对比（最近8次体重日期，匹配7天内最近的腰围）
+    const measures = (wx.getStorageSync('measures') || { list: [] }).list || [];
+    const pairs = list.slice(-8).map(function (r) {
+      const wH = Math.max(8, Math.min(100, Math.round(((r.weight - target) / (start - target)) * 100)));
+      const rd = new Date(r.date).getTime();
+      let mVal = null;
+      let best = null;
+      measures.forEach(function (m) {
+        const diff = Math.abs(new Date(m.date).getTime() - rd);
+        if (diff <= 7 * 86400000 && (best === null || diff < best)) {
+          best = diff;
+          mVal = m.waist != null ? m.waist : null;
+        }
+      });
+      const mH = mVal != null ? Math.max(8, Math.min(100, Math.round((mVal / 130) * 100))) : 0;
+      return { label: r.label, wH: wH, wVal: r.weight, mH: mH, mVal: mVal };
+    });
+
     let bmiText = '--';
     if (latest) {
       const b = latest.bmi;
@@ -78,7 +97,8 @@ Page({
       months: months,
       total: total.toFixed(1),
       predictText: smart.predictText(),
-      measureSub: this.measureSummary()
+      measureSub: this.measureSummary(),
+      pairs: pairs
     });
   },
 

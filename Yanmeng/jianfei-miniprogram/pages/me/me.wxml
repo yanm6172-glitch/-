@@ -125,8 +125,16 @@
         <view class="input time-box">{{weighTime}}</view>
       </picker>
     </view>
+    <view class="remind-row">
+      <text class="remind-label">📊 周报推送</text>
+      <switch checked="{{weeklyOn}}" bindchange="onWeeklyOn" color="#16a34a" />
+      <view class="input time-box fixed-tag">每周一</view>
+      <picker mode="time" value="{{weeklyTime}}" bindchange="onWeeklyTime" disabled="{{!weeklyOn}}">
+        <view class="input time-box">{{weeklyTime}}</view>
+      </picker>
+    </view>
     <button class="save-btn" bindtap="subscribeRemind">订阅提醒</button>
-    <view class="tip">个人主体为「一次性订阅」：每次授权只发一条通知。每天打开小程序时会弹窗提醒你重新订阅，点一下即可。</view>
+    <view class="tip">个人主体为「一次性订阅」：每次授权只发一条通知。每天打开小程序时会弹窗提醒你重新订阅，点一下即可。周报推送会在每周一自动生成你本周的数据总结。</view>
   </view>
 
   <!-- 更多功能 -->
@@ -220,7 +228,7 @@
     <view class="card-head">
       <text class="card-title">ℹ️ 关于</text>
     </view>
-    <view class="tip">减重打卡 v1.9.0</view>
+    <view class="tip">减重打卡 v2.0.0</view>
     <view class="row">
       <text class="link" bindtap="goAgreement">《用户协议》</text>
       <text class="link" bindtap="goPrivacy">《隐私政策》</text>

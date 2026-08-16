@@ -40,6 +40,8 @@ Page({
     weighTime: '08:00',
     weighDayIdx: 0,
     weighDays: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+    weeklyOn: false,
+    weeklyTime: '08:00',
     unreadNews: 0
   },
 
@@ -60,7 +62,9 @@ Page({
       waterTime: rs.waterTime || '15:00',
       weighOn: !!rs.weighOn,
       weighTime: rs.weighTime || '08:00',
-      weighDayIdx: (rs.weighDay || 1) - 1
+      weighDayIdx: (rs.weighDay || 1) - 1,
+      weeklyOn: !!rs.weeklyOn,
+      weeklyTime: rs.weeklyTime || '08:00'
     });
   },
 
@@ -349,6 +353,20 @@ Page({
     rs.weighDay = i + 1;
     remind.saveSet(rs);
     this.setData({ weighDayIdx: i });
+  },
+
+  onWeeklyOn(e) {
+    const rs = remind.getSet();
+    rs.weeklyOn = e.detail.value;
+    remind.saveSet(rs);
+    this.setData({ weeklyOn: rs.weeklyOn });
+  },
+
+  onWeeklyTime(e) {
+    const rs = remind.getSet();
+    rs.weeklyTime = e.detail.value;
+    remind.saveSet(rs);
+    this.setData({ weeklyTime: rs.weeklyTime });
   },
 
   subscribeRemind() {
