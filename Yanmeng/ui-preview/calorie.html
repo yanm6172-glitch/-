@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:375px; background:#f4f7f5; font-family:'Microsoft YaHei','PingFang SC',sans-serif; color:#1f2937; font-size:14px; line-height:1.5; }
+.page { padding-bottom:30px; }
+.card { background:#fff; border-radius:12px; padding:14px; margin:10px 12px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+.card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.card-title { font-size:15px; font-weight:600; }
+.card-num { font-size:14px; color:#16a34a; font-weight:600; }
+.card-num.over { color:#ef4444; }
+.tip { font-size:12px; color:#9ca3af; margin-top:4px; }
+.empty { color:#c4c9c8; font-size:12px; text-align:center; padding:8px 0; }
+.btn { display:inline-block; background:#16a34a; color:#fff; border-radius:6px; font-size:12px; padding:3px 14px; line-height:2.1; }
+.btn.gray { background:#f3f4f6; color:#374151; }
+.input { flex:1; background:#f3f4f6; border-radius:7px; padding:7px 10px; font-size:12px; color:#9ca3af; min-width:0; }
+.row { display:flex; align-items:center; margin:7px 0; flex-wrap:wrap; gap:8px; }
+.hero { background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff; box-shadow:0 4px 12px rgba(22,163,74,.25); }
+.hero-row { display:flex; justify-content:space-between; text-align:center; }
+.hero-item { flex:1; }
+.hero-item .v { font-size:20px; font-weight:700; }
+.hero-item .l { font-size:11px; opacity:.85; margin-top:3px; }
+.hero-progress { height:8px; background:rgba(255,255,255,.3); border-radius:4px; margin-top:10px; overflow:hidden; }
+.hero-progress-in { height:100%; background:#fff; border-radius:4px; }
+.hero-tip { font-size:11px; opacity:.9; margin-top:6px; }
+.scan-btn { display:block; text-align:center; background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff; font-size:16px; font-weight:600; border-radius:24px; padding:9px 0; }
+.scan-result { display:flex; margin-top:10px; padding:10px; background:#f0fdf4; border-radius:8px; }
+.scan-img { width:70px; height:70px; border-radius:6px; background:#fff; border:1px dashed #86efac; margin-right:10px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:28px; }
+.scan-info { flex:1; }
+.scan-name { font-size:14px; font-weight:600; }
+.scan-kcal { color:#16a34a; font-size:13px; font-weight:600; margin:4px 0; }
+.fav-item { display:flex; align-items:center; padding:7px 0; border-bottom:1px solid #f1f2f1; }
+.fav-item:last-child { border-bottom:none; }
+.fav-main { flex:1; display:flex; flex-direction:column; }
+.fav-name { font-size:13px; font-weight:500; }
+.fav-sub { font-size:11px; color:#9ca3af; }
+.fav-kcal { color:#6b7280; font-size:11px; margin:0 6px; }
+.cat-chips { white-space:nowrap; margin:4px 0 8px; overflow:hidden; }
+.cat-chip { display:inline-block; background:#f3f4f6; color:#374151; font-size:12px; border-radius:15px; padding:4px 13px; margin-right:7px; }
+.cat-chip.active { background:#16a34a; color:#fff; font-weight:600; }
+.food-lib-item { display:flex; align-items:center; padding:7px 0; border-bottom:1px solid #f1f2f1; }
+.food-lib-item:last-child { border-bottom:none; }
+.food-lib-main { flex:1; display:flex; flex-direction:column; }
+.preset-box { background:#f3f4f6; border-radius:7px; padding:7px 10px; font-size:12px; color:#374151; }
+.switch-row { display:flex; align-items:center; margin-top:8px; font-size:12px; color:#6b7280; gap:6px; }
+.sw { width:40px; height:22px; border-radius:11px; background:#16a34a; position:relative; display:inline-block; }
+.sw::after { content:''; position:absolute; width:18px; height:18px; border-radius:50%; background:#fff; top:2px; right:2px; }
+.list-item { display:flex; align-items:center; padding:7px 0; border-bottom:1px solid #f1f2f1; }
+.list-item:last-child { border-bottom:none; }
+.food-main { flex:1; display:flex; flex-direction:column; }
+.food-name { font-size:14px; font-weight:500; }
+.food-sub { font-size:11px; color:#9ca3af; }
+.food-grams { width:50px; text-align:right; color:#6b7280; font-size:12px; }
+.food-kcal { width:65px; text-align:right; color:#16a34a; font-size:13px; font-weight:600; }
+.del { color:#9ca3af; font-size:13px; margin-left:6px; }
+.btn, .row .btn { border-radius:999px; box-shadow:0 3px 8px rgba(22,163,74,.22); }
+.btn.gray { box-shadow:none; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 今日热量概览 -->
+  <div class="card hero">
+    <div class="hero-row">
+      <div class="hero-item"><div class="v">955</div><div class="l">已摄入 千卡</div></div>
+      <div class="hero-item"><div class="v">1500</div><div class="l">每日目标</div></div>
+      <div class="hero-item"><div class="v">545</div><div class="l">还能吃</div></div>
+    </div>
+    <div class="hero-progress"><div class="hero-progress-in" style="width:64%"></div></div>
+    <div class="hero-tip">目标可在「我的」页修改（减重期建议 1400~1600 千卡）</div>
+  </div>
+
+  <!-- 记录食物：拍食物 / 扫条形码 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">📷 记录食物</span></div>
+    <div style="display:flex;gap:8px;margin-bottom:6px">
+      <div style="flex:1;text-align:center;background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;border-radius:8px;padding:8px 0;font-weight:600;box-shadow:0 3px 8px rgba(22,163,74,.22)">📸 拍食物</div>
+      <div style="flex:1;text-align:center;background:#f3f4f6;color:#374151;border-radius:8px;padding:8px 0;font-weight:600">📷 扫条形码</div>
+    </div>
+    <div class="tip">拍食物：AI 识别是什么、估重并算热量；有包装的扫条形码更准</div>
+    <div class="scan-result">
+      <div class="scan-img">🍗</div>
+      <div class="scan-info">
+        <div class="scan-name">🍜 鸡腿饭</div>
+        <div class="scan-kcal">每100g：180 千卡 · 估算 720 千卡</div>
+        <div class="row">
+          <span class="input">400</span>
+          <span class="btn">计入</span>
+          <span class="btn gray">⭐收藏</span>
+        </div>
+      </div>
+    </div>
+    <div class="tip">识别不准？可改克数，或用下方手动添加</div>
+  </div>
+
+  <!-- 收藏夹 -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">⭐ 食物收藏夹</span>
+      <span class="card-num">3 个</span>
+    </div>
+    <div class="fav-item">
+      <div class="fav-main"><span class="fav-name">纯牛奶(全脂)</span></div>
+      <span class="fav-kcal">54 千卡/100g</span><span class="btn">吃</span><span class="del">✕</span>
+    </div>
+    <div class="fav-item">
+      <div class="fav-main"><span class="fav-name">米饭(熟)</span></div>
+      <span class="fav-kcal">116 千卡/100g</span><span class="btn">吃</span><span class="del">✕</span>
+    </div>
+    <div class="fav-item">
+      <div class="fav-main"><span class="fav-name">鸡胸肉</span></div>
+      <span class="fav-kcal">133 千卡/100g</span><span class="btn">吃</span><span class="del">✕</span>
+    </div>
+  </div>
+
+  <!-- 中国食物库 -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">🔍 中国食物库</span>
+      <span class="card-num">5 种</span>
+    </div>
+    <div class="cat-chips">
+      <span class="cat-chip active">全部</span><span class="cat-chip">主食</span><span class="cat-chip">肉蛋</span>
+      <span class="cat-chip">水产</span><span class="cat-chip">豆制品</span><span class="cat-chip">蔬菜</span><span class="cat-chip">水果</span>
+    </div>
+    <div class="input" style="margin-bottom:6px">搜索食物名，如：螺蛳粉</div>
+    <div class="food-lib-item">
+      <div class="food-lib-main"><span class="fav-name">螺蛳粉(煮好含汤)</span><span class="food-sub">160 千卡/100g · 一碗约800千卡，少喝汤可减</span></div>
+      <span class="btn">吃</span>
+    </div>
+    <div class="food-lib-item">
+      <div class="food-lib-main"><span class="fav-name">米饭(熟)</span><span class="food-sub">116 千卡/100g</span></div>
+      <span class="btn">吃</span>
+    </div>
+    <div class="food-lib-item">
+      <div class="food-lib-main"><span class="fav-name">兰州拉面</span><span class="food-sub">110 千卡/100g</span></div>
+      <span class="btn">吃</span>
+    </div>
+    <div class="food-lib-item">
+      <div class="food-lib-main"><span class="fav-name">桂林米粉</span><span class="food-sub">97 千卡/100g</span></div>
+      <span class="btn">吃</span>
+    </div>
+    <div class="food-lib-item">
+      <div class="food-lib-main"><span class="fav-name">麻辣烫(清汤)</span><span class="food-sub">90 千卡/100g · 麻辣红油汤约150</span></div>
+      <span class="btn">吃</span>
+    </div>
+    <div class="tip">约185种常见食物，数值为《中国食物成分表》估算</div>
+  </div>
+
+  <!-- 常用食物 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">🍚 常用食物（估算）</span></div>
+    <div class="preset-box">米饭（熟）· 116 千卡/100g ▾</div>
+    <div class="row">
+      <span class="input">吃了多少克</span>
+      <span class="btn">计入</span>
+    </div>
+  </div>
+
+  <!-- 手动添加 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">✍️ 手动添加</span></div>
+    <div class="row"><span class="input">食品名称</span></div>
+    <div class="row"><span class="input">每100g千卡（看包装营养成分表）</span></div>
+    <div class="row">
+      <span class="input">吃了多少克</span>
+      <span class="btn">计入</span>
+    </div>
+    <div class="switch-row"><span class="sw"></span> 同时加入收藏夹</div>
+  </div>
+
+  <!-- 今日清单 -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">📋 今天吃了</span>
+      <span class="card-num">合计 955 千卡</span>
+    </div>
+    <div class="list-item">
+      <div class="food-main"><span class="food-name">螺蛳粉</span></div>
+      <span class="food-grams">350g</span><span class="food-kcal">560 千卡</span><span class="del">✕</span>
+    </div>
+    <div class="list-item">
+      <div class="food-main"><span class="food-name">米饭(熟)</span></div>
+      <span class="food-grams">150g</span><span class="food-kcal">174 千卡</span><span class="del">✕</span>
+    </div>
+    <div class="list-item">
+      <div class="food-main"><span class="food-name">鸡胸肉</span></div>
+      <span class="food-grams">100g</span><span class="food-kcal">133 千卡</span><span class="del">✕</span>
+    </div>
+    <div class="list-item">
+      <div class="food-main"><span class="food-name">鸡蛋</span></div>
+      <span class="food-grams">60g</span><span class="food-kcal">86 千卡</span><span class="del">✕</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+
+\subsubsection{具体分析}
+
+问题四要求引入第二种导电介质金属B（球体，半径200nm），在导通概率不低于90\%的约束下最小化总成本，属于双变量成本优化问题。本问需要在金属A（高成本高效率）和金属B（低成本低效率）之间寻找最优配比。
+
+首先计算两种金属的单颗粒体积和成本，接着测试纯金属B方案的可行性作为参照，然后通过蒙特卡洛模拟评估不同$(N_A, N_B)$组合的导通概率，最后在满足90\%概率约束的组合中选择总成本最低者。具体分析流程如图\ref{fig:analysis4_flow}所示。
+
+\begin{figure}[ht]
+  \begin{center}
+    \begin{tikzpicture}[x=1cm, y=0.7cm]
+      \node[box] (n11) at (0, 0) {成本分析};
+      \node[box] (n12) at (5, 0) {纯B测试};
+      \node[box] (n13) at (10, 0) {双金属模拟};
+      \node[box] (n22) at (5, -3) {网格搜索};
+      \node[box] (n21) at (0, -3) {概率约束};
+      \node[box] (n23) at (10, -3) {成本比较};
+      \node[box] (n31) at (0, -6) {最优验证};
+      \node[box] (n32) at (5, -6) {灵敏度分析};
+      \node[box] (n33) at (10, -6) {结果输出};
+      \draw[arrow] (n11) -- (n12);
+      \draw[arrow] (n12) -- (n13);
+      \draw[arrow] (n23) -- (n22);
+      \draw[arrow] (n22) -- (n21);
+      \draw[arrow] (n13) -- ++(0,-1.0) -| (n23);
+      \draw[arrow] (n21) -- (n31);
+      \draw[arrow] (n31) -- (n32);
+      \draw[arrow] (n32) -- (n33);
+    \end{tikzpicture}
+    \caption{问题四分析流程图}
+    \label{fig:analysis4_flow}
+  \end{center}
+\end{figure}
+
+\subsubsection{模型准备}
+
+在建立优化模型之前，需要完成两种金属的成本核算和纯金属B方案的可行性评估。
+
+金属B为半径200nm的球体，体积$V_B = \frac{4}{3}\pi R_B^3 = \frac{4}{3}\pi \times 200^3 \approx 3.3510 \times 10^7$ nm$^3 = 3.3510 \times 10^{-2}$ $\mu$m$^3$。金属A体积$V_A = 1.4137 \times 10^{-2}$ $\mu$m$^3$。
+
+单颗粒成本核算如下：
+\begin{equation}
+\text{Cost}_A = 1.05 \times 1.4137 \times 10^{-2} = 0.01484 \text{ 元}
+\end{equation}
+\begin{equation}
+\text{Cost}_B = 0.05 \times 3.3510 \times 10^{-2} = 0.00168 \text{ 元}
+\end{equation}
+
+金属A的单颗粒成本是金属B的8.9倍。但金属A具有83:1的高长径比，渗透效率远高于球形金属B。
+
+纯金属B方案测试结果：100个球体时导通概率仅3\%，200个时5\%，500个时27\%，1000个时78\%，2000个时99\%。纯金属B达到90\%导通概率约需1700个球体，成本约2.85元，远高于纯金属A方案的0.579元（39个圆柱体）。综上所述，金属B虽然单价极低但效率极差，最优方案极可能以金属A为主。

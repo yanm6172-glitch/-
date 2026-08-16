@@ -1,0 +1,198 @@
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.form-label {
+  width: 200rpx;
+  font-size: 26rpx;
+  color: #374151;
+}
+
+.form-row .input {
+  flex: 1;
+}
+
+.picker-box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-btn {
+  margin-top: 24rpx;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  font-weight: 600;
+  border-radius: 16rpx;
+}
+
+.rule-item {
+  font-size: 26rpx;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f1f2f1;
+  line-height: 1.6;
+}
+
+.rule-item:last-child {
+  border-bottom: none;
+}
+
+/* 家人 */
+.fam-list {
+  margin-top: 16rpx;
+}
+
+.fam-name {
+  flex: 1;
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.fam-status {
+  font-size: 24rpx;
+  color: #16a34a;
+  margin-right: 16rpx;
+}
+
+.fam-cal {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+/* 提醒 */
+.remind-row {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.remind-label {
+  width: 220rpx;
+  font-size: 26rpx;
+  color: #374151;
+}
+
+.remind-row switch {
+  margin-right: 12rpx;
+}
+
+.time-box {
+  flex: 1;
+  text-align: center;
+  background: #f3f4f6;
+  border-radius: 14rpx;
+  padding: 10rpx 8rpx;
+  font-size: 26rpx;
+  margin-right: 12rpx;
+}
+
+/* 账号资料卡 */
+.profile-top {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-wrap {
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 104rpx;
+  height: 104rpx;
+  border-radius: 50%;
+  background: #dcfce7;
+}
+
+.avatar-empty {
+  line-height: 104rpx;
+  text-align: center;
+  font-size: 56rpx;
+}
+
+.profile-info {
+  flex: 1;
+  margin-left: 24rpx;
+}
+
+.profile-name {
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.profile-sub {
+  font-size: 22rpx;
+  color: #9ca3af;
+  margin-top: 6rpx;
+}
+
+.profile-edit {
+  font-size: 24rpx;
+  color: #16a34a;
+  padding: 8rpx 16rpx;
+}
+
+.profile-edit-area {
+  margin-top: 20rpx;
+  padding-top: 20rpx;
+  border-top: 1rpx solid #f1f2f1;
+}
+
+.avatar-btn {
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 26rpx;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+}
+
+.avatar-btn::after {
+  border: none;
+}
+
+.profile-footer {
+  margin-top: 16rpx;
+  text-align: right;
+}
+
+.logout-btn {
+  font-size: 24rpx;
+  color: #ef4444;
+  padding: 8rpx 12rpx;
+}
+
+.link {
+  color: #16a34a;
+  font-size: 24rpx;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .form-label,
+  .remind-label,
+  .rule-item,
+  .profile-name {
+    color: #e5e7eb;
+  }
+
+  .avatar-empty {
+    background: #14532d;
+  }
+
+  .avatar-btn {
+    background: #374151;
+    color: #e5e7eb;
+  }
+
+  .time-box {
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .profile-edit-area {
+    border-top-color: #374151;
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/weight/weight",
+    "pages/calorie/calorie",
+    "pages/report/report",
+    "pages/me/me",
+    "pages/achieve/achieve",
+    "pages/news/news",
+    "pages/agreement/agreement"
+  ],
+  "darkmode": true,
+  "themeLocation": "theme.json",
+  "window": {
+    "navigationBarBackgroundColor": "#16a34a",
+    "navigationBarTitleText": "减重打卡",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f7f5",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#9ca3af",
+    "selectedColor": "#16a34a",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "🏠 今日"
+      },
+      {
+        "pagePath": "pages/weight/weight",
+        "text": "⚖️ 体重"
+      },
+      {
+        "pagePath": "pages/calorie/calorie",
+        "text": "🔥 热量"
+      },
+      {
+        "pagePath": "pages/report/report",
+        "text": "📊 报告"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "text": "👤 我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

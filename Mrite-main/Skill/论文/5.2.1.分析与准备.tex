@@ -1,0 +1,46 @@
+
+\subsubsection{具体分析}
+
+问题二要求在微构体中填充金属A圆柱体至特定体积分数，计算不同填充率下的导通概率，属于多颗粒系统的统计模拟问题。本问采用蒙特卡洛模拟结合并查集连通性判定的策略。
+
+首先根据不同填充率计算对应的金属A颗粒数量，接着随机生成指定数量的圆柱体颗粒，构建考虑周期性边界条件的颗粒间连通图，然后通过并查集判断是否存在从左侧电极到右侧电极的导电通路，最后通过大量独立重复试验统计导通频率作为导通概率的估计。具体分析流程如图\ref{fig:analysis2_flow}所示。
+
+\begin{figure}[ht]
+  \begin{center}
+    \begin{tikzpicture}[x=1cm, y=0.7cm]
+      \node[box] (n11) at (0, 0) {计算颗粒数};
+      \node[box] (n12) at (5, 0) {随机生成};
+      \node[box] (n13) at (10, 0) {距离计算};
+      \node[box] (n22) at (5, -3) {连通图构建};
+      \node[box] (n21) at (0, -3) {并查集判定};
+      \node[box] (n23) at (10, -3) {导通判断};
+      \node[box] (n31) at (0, -6) {重复试验};
+      \node[box] (n32) at (5, -6) {概率统计};
+      \node[box] (n33) at (10, -6) {结果输出};
+      \draw[arrow] (n11) -- (n12);
+      \draw[arrow] (n12) -- (n13);
+      \draw[arrow] (n23) -- (n22);
+      \draw[arrow] (n22) -- (n21);
+      \draw[arrow] (n13) -- ++(0,-1.0) -| (n23);
+      \draw[arrow] (n21) -- (n31);
+      \draw[arrow] (n31) -- (n32);
+      \draw[arrow] (n32) -- (n33);
+    \end{tikzpicture}
+    \caption{问题二分析流程图}
+    \label{fig:analysis2_flow}
+  \end{center}
+\end{figure}
+
+\subsubsection{模型准备}
+
+在建立模型之前，需要完成颗粒数量确定和附件2固定配置分析两项准备工作。
+
+单个金属A圆柱体的体积为$V_A = \pi R_A^2 L_A = \pi \times 30^2 \times 5000 = 4.5\pi \times 10^6$ nm$^3 \approx 1.4137 \times 10^7$ nm$^3$。微构体总体积$V_{\text{total}} = 10000^3 = 1.0 \times 10^{12}$ nm$^3$。给定填充率$\phi$，所需颗粒数量为：
+\begin{equation}
+N = \left\lfloor \frac{\phi \cdot V_{\text{total}}}{V_A} \right\rfloor
+\end{equation}
+计算得各填充率对应的颗粒数：0.50\%对应353个，0.60\%对应424个，0.70\%对应495个，1.00\%对应707个。
+
+附件2包含49个金属A颗粒的固定坐标配置，填充率为$49 \times 1.4137 \times 10^7 / 10^{12} = 0.0693\%$。
+
+该问题本质上是一个三维渗流问题，需要在大量随机配置中统计导通频率。关键挑战在于颗粒数量较多时（$N$可达707），两两计算最短距离的复杂度为$O(N^2)$（约25万对），需要引入空间哈希等加速技术。综上所述，本节完成了参数计算和问题定位，接下来将建立连通性模型并进行蒙特卡洛求解。

@@ -1,0 +1,47 @@
+<view class="page">
+
+  <!-- 总览 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🏆 成就勋章</text>
+    </view>
+    <view class="count-row">
+      <text class="big">{{unlocked.length}}</text>
+      <text class="small"> / {{total}} 已解锁 · {{pct}}%</text>
+    </view>
+    <view class="progress">
+      <view class="progress-in" style="width:{{pct}}%"></view>
+    </view>
+    <view class="tip">坚持打卡和记录，解锁更多勋章</view>
+  </view>
+
+  <!-- 已获得 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">✅ 已获得</text>
+    </view>
+    <view class="badge-grid">
+      <view class="badge" wx:for="{{unlocked}}" wx:key="id">
+        <view class="badge-ico">{{item.icon}}</view>
+        <view class="badge-name">{{item.name}}</view>
+        <view class="badge-desc">{{item.desc}}</view>
+      </view>
+      <view wx:if="{{unlocked.length == 0}}" class="empty">还没有勋章，今天先打个卡吧</view>
+    </view>
+  </view>
+
+  <!-- 未解锁 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🔒 未解锁</text>
+    </view>
+    <view class="badge-grid">
+      <view class="badge locked" wx:for="{{locked}}" wx:key="id">
+        <view class="badge-ico">{{item.icon}}</view>
+        <view class="badge-name">{{item.name}}</view>
+        <view class="badge-desc">{{item.desc}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

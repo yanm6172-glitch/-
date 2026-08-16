@@ -1,0 +1,129 @@
+<view class="page">
+
+  <!-- 本周点评 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">💡 本周点评</text>
+      <text class="card-num">自动生成</text>
+    </view>
+    <view class="tip-item" wx:for="{{tips}}" wx:key="*this">
+      <text class="tip-dot"></text>
+      <text class="tip-text">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 每周报告 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📊 每周热量报告</text>
+      <view class="week-tabs">
+        <view class="week-tab {{weekOffset === 0 ? 'active' : ''}}" data-offset="0" bindtap="setWeek">本周</view>
+        <view class="week-tab {{weekOffset === -7 ? 'active' : ''}}" data-offset="-7" bindtap="setWeek">上周</view>
+      </view>
+    </view>
+
+    <view class="chart-wrap">
+      <view class="bar-col" wx:for="{{bars}}" wx:key="date">
+        <text class="bar-val">{{item.kcal > 0 ? item.kcal : ''}}</text>
+        <view class="bar {{item.state}}" style="height:{{item.h}}%"></view>
+        <text class="bar-label">{{item.label}}</text>
+        <text class="bar-date">{{item.date}}</text>
+      </view>
+    </view>
+    <view class="tip">绿=未超标 · 红=超标 · 灰=没记录（柱高按目标的1.5倍折算）</view>
+
+    <view class="stat-grid">
+      <view class="stat-item">
+        <view class="stat-num">{{stats.logDays}}/7</view>
+        <view class="stat-label">📝 记录天数</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.avgCal}}</view>
+        <view class="stat-label">🔥 日均热量</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num {{stats.overDays > 0 ? 'red' : ''}}">{{stats.overDays}}天</view>
+        <view class="stat-label">⚠️ 超标天数</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.avgSpend}}</view>
+        <view class="stat-label">💰 日均花费(元)</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.exTotal}}</view>
+        <view class="stat-label">🏃 运动(分钟)</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-num">{{stats.weightDelta}}</view>
+        <view class="stat-label">⚖️ 体重变化(kg)</view>
+      </view>
+    </view>
+    <view class="tip" wx:if="{{stats.checkDays > 0}}">已打卡 {{stats.checkDays}} 天 · 平均得分 {{stats.avgScore}} · 日均步数 {{stats.avgSteps}}</view>
+  </view>
+
+  <!-- 打卡日历 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🗓️ 打卡日历</text>
+      <view class="month-nav">
+        <text class="nav-btn" bindtap="prevMonth">‹</text>
+        <text class="month-title">{{calTitle}}</text>
+        <text class="nav-btn" bindtap="nextMonth">›</text>
+      </view>
+    </view>
+    <view class="cal-head">
+      <text class="cal-hd" wx:for="{{['一','二','三','四','五','六','日']}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="cal-grid">
+      <view class="cal-cell" wx:for="{{calCells}}" wx:key="key">
+        <block wx:if="{{!item.blank}}">
+          <view
+            class="cal-day {{item.checked ? 'checked' : ''}} {{item.hasData && !item.checked ? 'hasdata' : ''}} {{item.today ? 'today' : ''}} {{item.future ? 'future' : ''}}"
+            data-key="{{item.key}}"
+            bindtap="tapDay"
+          >{{item.day}}</view>
+        </block>
+        <block wx:else>
+          <view class="cal-day blank"></view>
+        </block>
+      </view>
+    </view>
+    <view class="cal-legend">
+      <text class="lg checked">■ 已打卡</text>
+      <text class="lg hasdata">■ 有记录未打卡</text>
+      <text class="lg none">□ 无记录</text>
+    </view>
+    <view class="tip">本月已打卡 {{calStats.count}} 天 · 平均得分 {{calStats.avg}} · 点某天看当天详情</view>
+  </view>
+
+  <!-- 更多 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🎁 更多</text>
+    </view>
+    <button class="export-btn" bindtap="exportImage">📤 导出周报图片</button>
+    <view class="entry-list">
+      <view class="entry-row" bindtap="goAchieve">
+        <view class="entry-ico">🏆</view>
+        <view class="entry-main">
+          <view class="entry-title">成就勋章</view>
+          <view class="entry-sub">19 枚勋章，解锁有庆祝</view>
+        </view>
+        <text class="entry-arrow">›</text>
+      </view>
+      <view class="entry-row" bindtap="goNews">
+        <view class="entry-ico">📬</view>
+        <view class="entry-main">
+          <view class="entry-title">消息中心</view>
+          <view class="entry-sub">打卡动态、里程碑、成就解锁记录</view>
+        </view>
+        <text class="entry-arrow">›</text>
+      </view>
+    </view>
+    <view class="tip">导出图片保存到相册，可以发给家人或发朋友圈</view>
+  </view>
+
+  <!-- 导出画布（隐藏） -->
+  <canvas type="2d" id="exportCanvas" class="export-canvas"></canvas>
+
+</view>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:375px; height:812px; background:#f4f7f5; font-family:'Microsoft YaHei','PingFang SC',sans-serif; color:#1f2937; }
+.login-page { display:flex; flex-direction:column; height:812px; padding:0 30px; }
+.brand { text-align:center; margin-top:70px; }
+.logo { width:80px; height:80px; line-height:80px; font-size:44px; text-align:center; border-radius:50%; margin:0 auto; background:linear-gradient(135deg,#16a34a,#22c55e); box-shadow:0 8px 20px rgba(22,163,74,.3); }
+.app-name { font-size:22px; font-weight:700; margin-top:16px; }
+.slogan { font-size:13px; color:#9ca3af; margin-top:6px; }
+.features { margin-top:40px; background:#fff; border-radius:12px; padding:16px 20px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+.feat { display:flex; align-items:center; padding:8px 0; }
+.feat-ico { font-size:18px; margin-right:12px; }
+.feat-txt { font-size:14px; color:#374151; }
+.login-bottom { margin-top:auto; padding:24px 0 30px; }
+.login-btn { display:block; text-align:center; background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff; font-size:16px; font-weight:600; border-radius:24px; padding:10px 0; }
+.agree-row { display:flex; align-items:center; justify-content:center; margin-top:14px; }
+.checkbox { width:16px; height:16px; line-height:15px; text-align:center; border-radius:50%; border:1px solid #9ca3af; color:#fff; font-size:11px; margin-right:6px; box-sizing:border-box; }
+.checkbox.on { background:#16a34a; border-color:#16a34a; }
+.agree-text { font-size:11px; color:#9ca3af; }
+.link { color:#16a34a; }
+</style>
+</head>
+<body>
+<div class="login-page">
+  <div class="brand">
+    <div class="logo">💪</div>
+    <div class="app-name">减重打卡</div>
+    <div class="slogan">记录每一天 · 遇见更好的自己</div>
+  </div>
+  <div class="features">
+    <div class="feat"><span class="feat-ico">⚖️</span><span class="feat-txt">体重趋势 · 达标预测</span></div>
+    <div class="feat"><span class="feat-ico">🔥</span><span class="feat-txt">扫码记热量 · 185种食物库</span></div>
+    <div class="feat"><span class="feat-ico">📊</span><span class="feat-txt">每周报告 · 打卡日历</span></div>
+    <div class="feat"><span class="feat-ico">👨‍👩‍👧</span><span class="feat-txt">家人组互相监督</span></div>
+  </div>
+  <div class="login-bottom">
+    <div class="login-btn">开始使用</div>
+    <div class="agree-row">
+      <span class="checkbox on">✓</span>
+      <span class="agree-text">已阅读并同意 <span class="link">《用户协议》</span> 与 <span class="link">《隐私政策》</span></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

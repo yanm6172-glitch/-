@@ -1,0 +1,199 @@
+<view class="page">
+
+  <!-- 账号资料卡 -->
+  <view class="card profile">
+    <view class="profile-top">
+      <view class="avatar-wrap">
+        <image wx:if="{{avatar}}" class="avatar" src="{{avatar}}" mode="aspectFill" />
+        <view wx:else class="avatar avatar-empty">👤</view>
+      </view>
+      <view class="profile-info">
+        <view class="profile-name">{{nickname || '未设置昵称'}}</view>
+        <view class="profile-sub">{{loggedIn ? '微信账号 · 已登录' : '本地体验模式 · 数据仅存本机'}}</view>
+      </view>
+      <view class="profile-edit" bindtap="toggleEdit">{{editing ? '收起' : '编辑'}}</view>
+    </view>
+    <view wx:if="{{editing}}" class="profile-edit-area">
+      <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">更换头像</button>
+      <view class="input-row">
+        <input class="input" type="nickname" placeholder="输入昵称（家人可见）" value="{{nickname}}" bindinput="onNickname" />
+        <button size="mini" bindtap="saveProfile">保存资料</button>
+      </view>
+    </view>
+    <view class="profile-footer">
+      <block wx:if="{{loggedIn}}">
+        <text class="logout-btn" bindtap="doLogout">退出登录</text>
+      </block>
+      <block wx:else>
+        <view class="row">
+          <button size="mini" bindtap="goLogin">去登录</button>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 目标设置 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🎯 目标设置</text>
+    </view>
+    <view class="form-row">
+      <text class="form-label">身高 (cm)</text>
+      <input class="input" type="digit" data-field="height" value="{{height}}" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">初始体重 (kg)</text>
+      <input class="input" type="digit" data-field="startWeight" value="{{startWeight}}" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">目标体重 (kg)</text>
+      <input class="input" type="digit" data-field="targetWeight" value="{{targetWeight}}" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">每周目标 (kg)</text>
+      <picker mode="selector" range="{{weeklyGoals}}" value="{{weeklyGoalIdx}}" bindchange="onGoal">
+        <view class="input picker-box">{{weeklyGoals[weeklyGoalIdx]}}</view>
+      </picker>
+    </view>
+    <view class="form-row">
+      <text class="form-label">每日预算 (元)</text>
+      <input class="input" type="digit" data-field="budget" value="{{budget}}" bindinput="onField" />
+    </view>
+    <view class="form-row">
+      <text class="form-label">每日热量 (千卡)</text>
+      <input class="input" type="digit" data-field="calorie" value="{{calorie}}" bindinput="onField" />
+    </view>
+    <button class="save-btn" bindtap="save">保存设置</button>
+    <view class="tip">从 {{startDate}} 开始记录 · 进度按「初始体重 → 目标体重」计算</view>
+  </view>
+
+  <!-- 云同步 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">☁️ 云同步</text>
+      <text class="card-num {{syncOn ? 'ok' : 'warn'}}">{{syncOn ? '已开启' : '未配置'}}</text>
+    </view>
+    <view class="tip">上次同步：{{lastSyncText}}。开启后数据自动备份到云端，换手机不丢。</view>
+    <view class="row">
+      <button size="mini" bindtap="doSync">立即同步</button>
+    </view>
+    <view class="tip" wx:if="{{!syncOn}}">需要开通云开发并把环境ID填入 utils/config.js，见 README「云开发配置」章节。</view>
+  </view>
+
+  <!-- 家人监督 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">👨‍👩‍👧 家人监督</text>
+    </view>
+    <view class="row">
+      <button size="mini" bindtap="createFamily">创建家庭组</button>
+      <button size="mini" class="btn-gray" bindtap="viewFamily">查看家人</button>
+    </view>
+    <view class="input-row">
+      <input class="input" placeholder="输入家人给的邀请码" value="{{joinCode}}" bindinput="onJoinCode" />
+      <button size="mini" bindtap="joinFamily">加入</button>
+    </view>
+    <view wx:if="{{familyMembers.length > 0}}" class="fam-list">
+      <view class="list-item" wx:for="{{familyMembers}}" wx:key="openid">
+        <text class="fam-name">{{item.nickname}}</text>
+        <text class="fam-status" wx:if="{{item.today}}">{{item.today.checked ? '✅' + item.today.score + '分' : '❌未打卡'}}</text>
+        <text class="fam-status" wx:else>无数据</text>
+        <text class="fam-cal" wx:if="{{item.today}}">{{item.today.cal}}千卡</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提醒设置 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">⏰ 打卡提醒</text>
+    </view>
+    <view class="remind-row">
+      <text class="remind-label">💧 喝水提醒</text>
+      <switch checked="{{waterOn}}" bindchange="onWaterOn" color="#16a34a" />
+      <picker mode="time" value="{{waterTime}}" bindchange="onWaterTime" disabled="{{!waterOn}}">
+        <view class="input time-box">{{waterTime}}</view>
+      </picker>
+    </view>
+    <view class="remind-row">
+      <text class="remind-label">⚖️ 称重提醒</text>
+      <switch checked="{{weighOn}}" bindchange="onWeighOn" color="#16a34a" />
+      <picker mode="selector" range="{{weighDays}}" value="{{weighDayIdx}}" bindchange="onWeighDay" disabled="{{!weighOn}}">
+        <view class="input time-box">{{weighDays[weighDayIdx]}}</view>
+      </picker>
+      <picker mode="time" value="{{weighTime}}" bindchange="onWeighTime" disabled="{{!weighOn}}">
+        <view class="input time-box">{{weighTime}}</view>
+      </picker>
+    </view>
+    <button class="save-btn" bindtap="subscribeRemind">订阅提醒</button>
+    <view class="tip">个人主体为「一次性订阅」：每次授权只发一条通知。每天打开小程序时会弹窗提醒你重新订阅，点一下即可。</view>
+  </view>
+
+  <!-- 更多功能 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🎁 更多功能</text>
+    </view>
+    <view class="entry-list">
+      <view class="entry-row" bindtap="goAchieve">
+        <view class="entry-ico">🏆</view>
+        <view class="entry-main">
+          <view class="entry-title">成就勋章</view>
+          <view class="entry-sub">19 枚勋章，解锁有庆祝</view>
+        </view>
+        <text class="entry-arrow">›</text>
+      </view>
+      <view class="entry-row" bindtap="goNews">
+        <view class="entry-ico">📬</view>
+        <view class="entry-main">
+          <view class="entry-title">消息中心</view>
+          <view class="entry-sub">打卡动态、里程碑、成就解锁记录</view>
+        </view>
+        <text wx:if="{{unreadNews > 0}}" class="entry-badge">{{unreadNews}}</text>
+        <text class="entry-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 减肥规则速查 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📜 减肥规则速查</text>
+    </view>
+    <view class="rule-item">🍜 螺蛳粉每周 ≤2 次：不加炸腐竹和花生，少喝汤</view>
+    <view class="rule-item">🧋 奶茶每周 ≤1 杯，点无糖或三分糖</view>
+    <view class="rule-item">☕ 咖啡改美式/黑咖，戒糖奶</view>
+    <view class="rule-item">🍗 炸鸡汉堡每周 ≤1 次，吃前先喝一杯水</view>
+    <view class="rule-item">🛒 零食先停一个月，馋了吃水果或煮鸡蛋</view>
+    <view class="rule-item">💧 每天喝水 2L，饭前一杯</view>
+    <view class="rule-item">🍱 每餐 211：2份蔬菜、1份蛋白质、1份主食</view>
+    <view class="rule-item">🚲 通勤骑行/快走；先别跑步跳绳，保护膝盖</view>
+    <view class="rule-item">⚖️ 每周称重1次，目标每周 -0.5~1 kg</view>
+    <view class="rule-item">💤 睡够7小时，熬夜更容易想吃螺蛳粉和奶茶</view>
+    <view class="rule-item">💰 每日预算 {{budget}} 元，超了第二天扣回来</view>
+    <view class="rule-item">🔥 每天热量 {{calorie}} 千卡，扫码记录每样食物</view>
+  </view>
+
+  <!-- 数据管理 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🗑️ 数据管理</text>
+    </view>
+    <button class="btn-gray" bindtap="clearData">清除全部打卡数据</button>
+    <view class="tip">所有数据只保存在你的手机本地，换手机或删除小程序后数据会丢失。</view>
+  </view>
+
+  <!-- 关于 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">ℹ️ 关于</text>
+    </view>
+    <view class="tip">减重打卡 v1.6.0</view>
+    <view class="row">
+      <text class="link" bindtap="goAgreement">《用户协议》</text>
+      <text class="link" bindtap="goPrivacy">《隐私政策》</text>
+    </view>
+    <view class="tip">本小程序仅作打卡记录工具，内置内容为通用健康建议，不构成医疗建议。如有身体不适，请及时就医。</view>
+  </view>
+
+</view>

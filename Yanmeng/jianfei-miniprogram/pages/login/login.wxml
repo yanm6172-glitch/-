@@ -1,0 +1,35 @@
+<view class="login-page">
+
+  <!-- 品牌区 -->
+  <view class="brand">
+    <view class="logo">💪</view>
+    <view class="app-name">减重打卡</view>
+    <view class="slogan">记录每一天 · 遇见更好的自己</view>
+  </view>
+
+  <!-- 功能亮点 -->
+  <view class="features">
+    <view class="feat"><text class="feat-ico">⚖️</text><text class="feat-txt">体重趋势 · 达标预测</text></view>
+    <view class="feat"><text class="feat-ico">🔥</text><text class="feat-txt">扫码记热量 · 185种食物库</text></view>
+    <view class="feat"><text class="feat-ico">📊</text><text class="feat-txt">每周报告 · 打卡日历</text></view>
+    <view class="feat"><text class="feat-ico">👨‍👩‍👧</text><text class="feat-txt">家人组互相监督</text></view>
+  </view>
+
+  <!-- 登录区 -->
+  <view class="login-bottom">
+    <button class="login-btn" bindtap="doLogin" loading="{{loading}}" disabled="{{loading}}">
+      {{cloudOff ? '开始使用' : '微信一键登录'}}
+    </button>
+    <view class="agree-row" bindtap="toggleAgree">
+      <view class="checkbox {{agreed ? 'on' : ''}}">{{agreed ? '✓' : ''}}</view>
+      <view class="agree-text">
+        已阅读并同意
+        <text class="link" catchtap="goUser">《用户协议》</text>
+        与
+        <text class="link" catchtap="goPrivacy">《隐私政策》</text>
+      </view>
+    </view>
+    <view class="guest-tip" wx:if="{{cloudOff}}">当前未配置云开发，将进入本地体验模式（数据仅存本机，其余功能不受影响）</view>
+  </view>
+
+</view>

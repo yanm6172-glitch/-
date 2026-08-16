@@ -1,0 +1,37 @@
+# Archives (too large for GitHub)
+*.zip
+# ... except small Unity asset zips inside the project
+!Yanmeng/Assets/**/*.zip
+
+# Local Node.js runtime files (tooling, not project code)
+/node.exe
+/npm
+/npm.cmd
+/npm.ps1
+/npx
+/npx.cmd
+/npx.ps1
+/corepack
+/corepack.cmd
+/nodevars.bat
+
+# Dependencies
+node_modules/
+
+# Packaged Electron app (build output, exceeds GitHub limits)
+/SakuraCat/
+
+# Duplicate copy of the Yanmeng Unity project
+/Yanmeng1/
+
+# Unity / Visual Studio / OS noise (Yanmeng also has its own .gitignore)
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Ll]ogs/
+**/[Uu]serSettings/
+**/.vs/
+**/.plastic/
+
+.DS_Store
+Thumbs.db

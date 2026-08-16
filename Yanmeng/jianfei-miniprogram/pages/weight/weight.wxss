@@ -1,0 +1,172 @@
+/* 顶部概览（与首页同款绿色卡片） */
+.hero {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(22, 163, 74, 0.25);
+}
+
+.hero-row {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.hero-item {
+  flex: 1;
+}
+
+.hero-num {
+  font-size: 44rpx;
+  font-weight: 700;
+}
+
+.hero-label {
+  font-size: 22rpx;
+  opacity: 0.85;
+  margin-top: 6rpx;
+}
+
+.hero-progress {
+  height: 16rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8rpx;
+  margin-top: 24rpx;
+  overflow: hidden;
+}
+
+.hero-progress-in {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 8rpx;
+}
+
+.hero-tip {
+  font-size: 22rpx;
+  opacity: 0.9;
+  margin-top: 12rpx;
+}
+
+/* 柱状图 */
+.chart-wrap {
+  display: flex;
+  align-items: flex-end;
+  height: 340rpx;
+  padding: 20rpx 0 8rpx;
+}
+
+.bar-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bar {
+  width: 56%;
+  min-height: 12rpx;
+  border-radius: 8rpx 8rpx 0 0;
+  background: #f59e0b;
+}
+
+.bar.down {
+  background: #16a34a;
+}
+
+.bar-val {
+  font-size: 20rpx;
+  color: #6b7280;
+  margin-bottom: 6rpx;
+}
+
+.bar-label {
+  font-size: 20rpx;
+  color: #9ca3af;
+  margin-top: 8rpx;
+}
+
+.chart-legend {
+  display: flex;
+  margin-top: 12rpx;
+}
+
+.lg {
+  font-size: 22rpx;
+  color: #9ca3af;
+  margin-right: 24rpx;
+}
+
+.lg.green {
+  color: #16a34a;
+}
+
+.lg.orange {
+  color: #f59e0b;
+}
+
+/* 历史记录 */
+.h-date {
+  width: 110rpx;
+  color: #6b7280;
+  font-size: 26rpx;
+}
+
+.h-weight {
+  flex: 1;
+  font-weight: 600;
+  font-size: 28rpx;
+}
+
+.h-delta {
+  width: 90rpx;
+  text-align: right;
+  font-size: 24rpx;
+}
+
+.h-delta.good {
+  color: #16a34a;
+}
+
+.h-delta.bad {
+  color: #ef4444;
+}
+
+.h-bmi {
+  width: 130rpx;
+  text-align: right;
+  color: #9ca3af;
+  font-size: 22rpx;
+}
+
+.clear-link {
+  color: #9ca3af;
+  font-size: 24rpx;
+}
+
+/* 达标预测 */
+.predict-text {
+  font-size: 28rpx;
+  color: #374151;
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.empty button {
+  margin-top: 16rpx;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .h-weight {
+    color: #e5e7eb;
+  }
+
+  .predict-text {
+    color: #d1d5db;
+  }
+
+  .bar-val {
+    color: #9ca3af;
+  }
+}

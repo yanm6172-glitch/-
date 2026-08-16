@@ -1,0 +1,169 @@
+<view class="page">
+
+  <!-- 今日热量概览 -->
+  <view class="card hero">
+    <view class="hero-row">
+      <view class="hero-item">
+        <view class="hero-num">{{total}}</view>
+        <view class="hero-label">已摄入 千卡</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{goal}}</view>
+        <view class="hero-label">每日目标</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{remain}}</view>
+        <view class="hero-label">{{remain >= 0 ? '还能吃' : '已超'}}</view>
+      </view>
+    </view>
+    <view class="hero-progress">
+      <view class="hero-progress-in" style="width:{{pct}}%"></view>
+    </view>
+    <view class="hero-tip">目标可在「我的」页修改（减重期建议 1400~1600 千卡）</view>
+  </view>
+
+  <!-- 记录食物：拍食物 / 扫条形码 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📷 记录食物</text>
+    </view>
+    <view class="photo-btns">
+      <button class="half-btn" bindtap="takePhoto" loading="{{photoLoading}}" disabled="{{photoLoading}}">
+        {{photoLoading ? 'AI 识别中…' : '📸 拍食物'}}
+      </button>
+      <button class="half-btn gray" bindtap="scan" disabled="{{scanning}}">
+        {{scanning ? '查询中…' : '📷 扫条形码'}}
+      </button>
+    </view>
+    <view class="tip">拍食物：AI 识别是什么、估重并算热量；有包装的扫条形码更准</view>
+
+    <!-- 拍照识别结果 -->
+    <view wx:if="{{photoResult}}" class="scan-result">
+      <image class="scan-img" src="{{photoResult.image}}" mode="aspectFill" />
+      <view class="scan-info">
+        <view class="scan-name">🍜 {{photoResult.name}}</view>
+        <view class="scan-kcal">每100g：{{photoResult.kcal100}} 千卡 · 估算 {{photoResult.kcal}} 千卡</view>
+        <view class="row">
+          <input class="input" type="digit" placeholder="克数" value="{{photoGrams}}" bindinput="onPhotoGrams" />
+          <button size="mini" bindtap="addPhoto">计入</button>
+          <button size="mini" class="btn-gray" bindtap="favPhoto">⭐收藏</button>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{photoError}}" class="scan-error">{{photoError}}</view>
+
+    <!-- 扫码结果 -->
+    <view wx:if="{{scanResult}}" class="scan-result">
+      <image wx:if="{{scanResult.image}}" class="scan-img" src="{{scanResult.image}}" mode="aspectFit" />
+      <view class="scan-info">
+        <view class="scan-name">{{scanResult.name}}</view>
+        <view class="tip" wx:if="{{scanResult.brand}}">{{scanResult.brand}}</view>
+        <view class="scan-kcal">每 100g：{{scanResult.kcal100}} 千卡</view>
+        <view class="row">
+          <input class="input" type="digit" placeholder="吃了多少克" value="{{scanGrams}}" bindinput="onScanGrams" />
+          <button size="mini" bindtap="addScanned">计入</button>
+          <button size="mini" class="btn-gray" bindtap="addFavorite">⭐收藏</button>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{scanError}}" class="scan-error">{{scanError}}</view>
+  </view>
+
+  <!-- 食物收藏夹 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">⭐ 食物收藏夹</text>
+      <text class="card-num">{{favfoods.length}} 个</text>
+    </view>
+    <view class="fav-item" wx:for="{{favfoods}}" wx:key="name">
+      <view class="fav-main">
+        <text class="fav-name">{{item.name}}</text>
+        <text class="food-sub" wx:if="{{item.brand}}">{{item.brand}}</text>
+      </view>
+      <text class="fav-kcal">{{item.kcal100}} 千卡/100g</text>
+      <button size="mini" data-i="{{index}}" bindtap="useFav">吃</button>
+      <text class="del" data-i="{{index}}" bindtap="delFav">✕</text>
+    </view>
+    <view wx:if="{{favfoods.length == 0}}" class="empty">扫码结果点「⭐收藏」，或手动添加时打开收藏开关，常用食物会出现在这里</view>
+  </view>
+
+  <!-- 中国食物库 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🔍 中国食物库</text>
+      <text class="card-num">{{results.length}} 种</text>
+    </view>
+    <scroll-view scroll-x class="cat-chips">
+      <view
+        class="cat-chip {{catIdx === index ? 'active' : ''}}"
+        wx:for="{{categories}}"
+        wx:key="*this"
+        data-i="{{index}}"
+        bindtap="onCat"
+      >{{item}}</view>
+    </scroll-view>
+    <input class="input" placeholder="搜索食物名，如：螺蛳粉" value="{{q}}" bindinput="onSearch" />
+    <view class="food-lib">
+      <view class="food-lib-item" wx:for="{{results}}" wx:key="n">
+        <view class="food-lib-main">
+          <text class="fav-name">{{item.n}}</text>
+          <text class="food-sub">{{item.c}} 千卡/100g{{item.note ? ' · ' + item.note : ''}}</text>
+        </view>
+        <button size="mini" data-i="{{index}}" bindtap="useFood">吃</button>
+      </view>
+      <view wx:if="{{results.length == 0}}" class="empty">没找到，用下方「手动添加」</view>
+    </view>
+    <view class="tip">约150种常见食物，数值为《中国食物成分表》估算；包装食品以标签为准</view>
+  </view>
+
+  <!-- 常用食物 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🍚 常用食物（估算）</text>
+    </view>
+    <picker mode="selector" range="{{presetNames}}" value="{{presetIdx}}" bindchange="onPreset">
+      <view class="input preset-box">{{presetNames[presetIdx]}} ▾</view>
+    </picker>
+    <button class="full-btn" bindtap="addPreset">计入（选分量）</button>
+  </view>
+
+  <!-- 手动添加 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">✍️ 手动添加</text>
+    </view>
+    <view class="row">
+      <input class="input" placeholder="食品名称" value="{{manualName}}" bindinput="onManualName" />
+    </view>
+    <view class="row">
+      <input class="input" type="digit" placeholder="每100g千卡（看包装营养成分表）" value="{{manualKcal}}" bindinput="onManualKcal" />
+    </view>
+    <view class="row">
+      <input class="input" type="digit" placeholder="吃了多少克" value="{{manualGrams}}" bindinput="onManualGrams" />
+      <button size="mini" bindtap="addManual">计入</button>
+    </view>
+    <view class="fav-switch-row">
+      <switch checked="{{favOn}}" bindchange="toggleFav" color="#16a34a" />
+      <text class="fav-switch-label">同时加入收藏夹</text>
+    </view>
+  </view>
+
+  <!-- 今日清单 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📋 今天吃了</text>
+      <text class="card-num {{total > goal ? 'over' : 'ok'}}">合计 {{total}} 千卡</text>
+    </view>
+    <view class="list-item" wx:for="{{foods}}" wx:key="id">
+      <view class="food-main">
+        <text class="food-name">{{item.name}}</text>
+        <text class="food-sub" wx:if="{{item.brand}}">{{item.brand}}</text>
+      </view>
+      <text class="food-grams">{{item.grams}}g</text>
+      <text class="food-kcal">{{item.kcal}} 千卡</text>
+      <text class="del" data-id="{{item.id}}" bindtap="delFood">✕</text>
+    </view>
+    <view wx:if="{{foods.length == 0}}" class="empty">今天还没记录食物，扫码或手动添加吧</view>
+  </view>
+
+</view>

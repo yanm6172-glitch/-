@@ -1,0 +1,19 @@
+<view class="page">
+
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📬 消息中心</text>
+      <text class="clear-link" bindtap="clearAll">清空</text>
+    </view>
+    <view class="news-item" wx:for="{{list}}" wx:key="id">
+      <view class="news-ico">{{item.icon}}</view>
+      <view class="news-main">
+        <view class="news-title">{{item.title}}</view>
+        <view class="news-text" wx:if="{{item.text}}">{{item.text}}</view>
+      </view>
+      <view class="news-time">{{item.time}}</view>
+    </view>
+    <view wx:if="{{list.length == 0}}" class="empty">还没有消息。打卡、称重、解锁成就都会记录在这里。</view>
+  </view>
+
+</view>

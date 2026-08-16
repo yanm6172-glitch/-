@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="doc">
+    <view class="doc-title">{{title}}</view>
+    <view class="doc-date">更新日期：2026年8月</view>
+    <view class="section" wx:for="{{sections}}" wx:key="*this">
+      <view class="section-title">{{item[0]}}</view>
+      <view class="section-text">{{item[1]}}</view>
+    </view>
+  </view>
+</view>

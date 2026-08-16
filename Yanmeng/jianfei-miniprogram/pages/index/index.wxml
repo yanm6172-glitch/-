@@ -1,0 +1,225 @@
+<view class="page">
+
+  <!-- 主卡（整卡可点 → 体重页） -->
+  <view class="card hero" bindtap="goWeight">
+    <view class="hero-top">
+      <view class="hero-main">
+        <view class="hero-num">{{currentWeight || '--'}}<text class="hero-unit"> kg</text></view>
+        <view class="hero-label">当前体重 · BMI {{bmi || '--'}}</view>
+      </view>
+      <view class="hero-chips">
+        <view class="chip">🔥 连续 {{streak}} 天</view>
+        <view class="chip" wx:if="{{checked}}">⭐ {{score}} 分</view>
+      </view>
+    </view>
+    <view class="hero-row">
+      <view class="hero-item">
+        <view class="hero-num">{{lost}}</view>
+        <view class="hero-label">已减 kg</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{remain}}</view>
+        <view class="hero-label">距目标 kg</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{pct}}%</view>
+        <view class="hero-label">总进度</view>
+      </view>
+    </view>
+    <view class="hero-progress">
+      <view class="hero-progress-in" style="width:{{pct}}%"></view>
+    </view>
+    <view class="hero-tip">{{settings.startWeight}}kg → {{settings.targetWeight}}kg · 每周目标 -{{settings.weeklyGoal}}kg</view>
+    <view class="hero-link">点我记录体重 ›</view>
+  </view>
+
+  <!-- 新手引导 -->
+  <view class="card guide" wx:if="{{!currentWeight}}">
+    <view class="card-head">
+      <text class="card-title">🚀 三步开始</text>
+    </view>
+    <view class="guide-step">
+      <text class="step-num">1</text>
+      <text class="step-text">「我的」页确认目标（{{settings.startWeight}}kg → {{settings.targetWeight}}kg）</text>
+    </view>
+    <view class="guide-step">
+      <text class="step-num">2</text>
+      <text class="step-text">「体重」页记下今天的体重</text>
+    </view>
+    <view class="guide-step">
+      <text class="step-num">3</text>
+      <text class="step-text">每天在这里打卡：水 / 步数 / 211 / 热量 / 预算</text>
+    </view>
+    <view class="row">
+      <button size="mini" bindtap="goWeight">去记体重</button>
+      <button size="mini" class="btn-gray" bindtap="goMe">去设目标</button>
+    </view>
+  </view>
+
+  <!-- 今日建议 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">💡 今日建议</text>
+      <text class="card-num">{{checked ? '已打卡' : '加油'}}</text>
+    </view>
+    <view class="tip-item" wx:for="{{tips}}" wx:key="*this">
+      <text class="tip-dot"></text>
+      <text class="tip-text">{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 热量入口 -->
+  <view class="card entry-card" bindtap="goCalorie">
+    <view class="entry-row">
+      <view class="entry-ico">🔥</view>
+      <view class="entry-main">
+        <view class="entry-title">今日热量</view>
+        <view class="entry-sub">{{calTotal}} / {{calGoal}} 千卡{{calTotal > calGoal ? ' · 已超标' : ''}}</view>
+        <view class="cal-progress">
+          <view class="cal-progress-in {{calTotal > calGoal ? 'over' : ''}}" style="width:{{calPct}}%"></view>
+        </view>
+      </view>
+      <text class="entry-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 喝水 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">💧 喝水打卡</text>
+      <text class="card-num {{water >= 2000 ? 'ok' : 'warn'}}">{{water}} / 2000 ml</text>
+    </view>
+    <view class="water-row">
+      <view
+        wx:for="{{waterBlocks}}"
+        wx:key="*this"
+        class="water-block {{water >= (item + 1) * 250 ? 'full' : ''}}"
+        data-i="{{item}}"
+        bindtap="setWater"
+      ></view>
+    </view>
+    <view class="row">
+      <button size="mini" class="btn-gray" bindtap="waterMinus">−250</button>
+      <text class="tip-inline">点格子记水量，每格 250ml</text>
+    </view>
+  </view>
+
+  <!-- 步数 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🚶 步数</text>
+      <text class="card-num {{steps >= stepGoal ? 'ok' : 'warn'}}">{{steps}} / {{stepGoal}}</text>
+    </view>
+    <view class="row">
+      <button size="mini" data-v="1000" bindtap="addSteps">+1000</button>
+      <button size="mini" data-v="3000" bindtap="addSteps">+3000</button>
+      <button size="mini" data-v="5000" bindtap="addSteps">+5000</button>
+    </view>
+    <view class="input-row">
+      <input
+        class="input"
+        type="number"
+        placeholder="手机计步器上的数字填这里"
+        value="{{stepsInput}}"
+        bindinput="onStepsInput"
+        bindblur="commitSteps"
+        bindconfirm="commitSteps"
+      />
+    </view>
+  </view>
+
+  <!-- 211 饮食 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🍱 饮食 211</text>
+      <text class="card-num {{veg >= 2 && protein >= 2 ? 'ok' : 'warn'}}">{{veg >= 2 && protein >= 2 ? '达标 ✅' : '加油 💪'}}</text>
+    </view>
+    <view class="counter-row">
+      <text class="counter-label">🥬 蔬菜（目标≥2份）</text>
+      <view class="counter-btn" data-field="veg" data-delta="-1" bindtap="changeCounter">−</view>
+      <text class="counter-val">{{veg}}</text>
+      <view class="counter-btn" data-field="veg" data-delta="1" bindtap="changeCounter">＋</view>
+    </view>
+    <view class="counter-row">
+      <text class="counter-label">🍗 蛋白质（目标≥2份）</text>
+      <view class="counter-btn" data-field="protein" data-delta="-1" bindtap="changeCounter">−</view>
+      <text class="counter-val">{{protein}}</text>
+      <view class="counter-btn" data-field="protein" data-delta="1" bindtap="changeCounter">＋</view>
+    </view>
+    <view class="counter-row">
+      <text class="counter-label">🍚 主食（1~2份，别超）</text>
+      <view class="counter-btn" data-field="staple" data-delta="-1" bindtap="changeCounter">−</view>
+      <text class="counter-val">{{staple}}</text>
+      <view class="counter-btn" data-field="staple" data-delta="1" bindtap="changeCounter">＋</view>
+    </view>
+    <view class="tip">一份≈一拳头。每餐 2 份蔬菜、1 份蛋白质、1 份主食</view>
+
+    <view class="meal-add">
+      <picker mode="selector" range="{{mealTypes}}" value="{{mealTypeIdx}}" bindchange="onMealType">
+        <view class="meal-picker">{{mealTypes[mealTypeIdx]}} ▾</view>
+      </picker>
+      <input
+        class="input meal-input"
+        placeholder="吃了什么？（如：鸡腿饭+两份青菜）"
+        value="{{mealText}}"
+        bindinput="onMealInput"
+        bindconfirm="addMeal"
+      />
+      <button size="mini" bindtap="addMeal">添加</button>
+    </view>
+    <view class="meal-list">
+      <view class="list-item" wx:for="{{meals}}" wx:key="id">
+        <text class="tag">{{item.type}}</text>
+        <text class="meal-text">{{item.text}}</text>
+        <text class="del" data-id="{{item.id}}" bindtap="delMeal">✕</text>
+      </view>
+      <view wx:if="{{meals.length == 0}}" class="empty">今天还没记录饮食</view>
+    </view>
+  </view>
+
+  <!-- 运动 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🏃 运动</text>
+      <text class="card-num {{exMin >= exGoal ? 'ok' : 'warn'}}">{{exMin}} / {{exGoal}} 分钟</text>
+    </view>
+    <view class="row">
+      <button size="mini" data-type="骑行" data-min="30" bindtap="addEx">🚲 骑行30分</button>
+      <button size="mini" data-type="快走" data-min="30" bindtap="addEx">🚶 快走30分</button>
+      <button size="mini" data-type="游泳" data-min="45" bindtap="addEx">🏊 游泳45分</button>
+    </view>
+    <view class="meal-list">
+      <view class="list-item" wx:for="{{exList}}" wx:key="id">
+        <text class="tag">{{item.type}}</text>
+        <text class="meal-text">{{item.min}} 分钟</text>
+        <text class="del" data-id="{{item.id}}" bindtap="delEx">✕</text>
+      </view>
+      <view wx:if="{{exList.length == 0}}" class="empty">骑车/快走/游泳都行，先别跑步跳绳（保护膝盖）</view>
+    </view>
+  </view>
+
+  <!-- 花费 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">💰 今日花费</text>
+      <text class="card-num {{remainBudget >= 0 ? 'ok' : 'over'}}">剩余 {{remainBudget}} 元</text>
+    </view>
+    <view class="input-row">
+      <input
+        class="input"
+        type="digit"
+        placeholder="今天已花多少？"
+        value="{{spendInput}}"
+        bindinput="onSpendInput"
+        bindblur="commitSpend"
+        bindconfirm="commitSpend"
+      />
+    </view>
+    <view class="tip">每日预算 {{budget}} 元 · 已花 {{spend}} 元（超了明天扣回来）</view>
+  </view>
+
+  <!-- 打卡按钮 -->
+  <button class="checkin-btn" bindtap="doCheckin">{{checked ? '✅ 已打卡 · 点我重新评分' : '🎯 完成今日打卡'}}</button>
+  <view wx:if="{{checked}}" class="score-tip">今日 {{score}} 分 · {{missedText}}</view>
+
+</view>

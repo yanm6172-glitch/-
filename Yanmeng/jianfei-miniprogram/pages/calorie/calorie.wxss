@@ -1,0 +1,288 @@
+/* 顶部概览 */
+.hero {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(22, 163, 74, 0.25);
+}
+
+.hero-row {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.hero-item {
+  flex: 1;
+}
+
+.hero-num {
+  font-size: 44rpx;
+  font-weight: 700;
+}
+
+.hero-label {
+  font-size: 22rpx;
+  opacity: 0.85;
+  margin-top: 6rpx;
+}
+
+.hero-progress {
+  height: 16rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8rpx;
+  margin-top: 24rpx;
+  overflow: hidden;
+}
+
+.hero-progress-in {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 8rpx;
+}
+
+.hero-tip {
+  font-size: 22rpx;
+  opacity: 0.9;
+  margin-top: 12rpx;
+}
+
+/* 记录食物双入口 */
+.photo-btns {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.half-btn {
+  flex: 1;
+  font-weight: 600;
+  border-radius: 16rpx;
+}
+
+.half-btn.gray {
+  background: #f3f4f6;
+  color: #374151;
+  box-shadow: none;
+}
+
+.full-btn {
+  width: 100%;
+  border-radius: 16rpx;
+  margin-top: 12rpx;
+}
+
+/* 扫码按钮 */
+.scan-btn {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 48rpx;
+  padding: 8rpx 0;
+}
+
+.scan-btn[disabled] {
+  opacity: 0.7;
+  color: #ffffff;
+}
+
+/* 扫描结果 */
+.scan-result {
+  display: flex;
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background: #f0fdf4;
+  border-radius: 16rpx;
+}
+
+.scan-img {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 12rpx;
+  background: #ffffff;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.scan-info {
+  flex: 1;
+}
+
+.scan-name {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.scan-kcal {
+  color: #16a34a;
+  font-size: 26rpx;
+  font-weight: 600;
+  margin: 8rpx 0;
+}
+
+.scan-error {
+  margin-top: 16rpx;
+  padding: 16rpx 20rpx;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 24rpx;
+  border-radius: 12rpx;
+  white-space: pre-line;
+}
+
+/* 常用食物 */
+.preset-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+/* 今日清单 */
+.food-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.food-name {
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+.food-sub {
+  font-size: 22rpx;
+  color: #9ca3af;
+}
+
+.food-grams {
+  width: 100rpx;
+  text-align: right;
+  color: #6b7280;
+  font-size: 24rpx;
+}
+
+.food-kcal {
+  width: 130rpx;
+  text-align: right;
+  color: #16a34a;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+/* 收藏夹 */
+.fav-item {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f1f2f1;
+}
+
+.fav-item:last-child {
+  border-bottom: none;
+}
+
+.fav-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.fav-name {
+  font-size: 26rpx;
+  font-weight: 500;
+}
+
+.fav-kcal {
+  color: #6b7280;
+  font-size: 22rpx;
+  margin: 0 12rpx;
+}
+
+.fav-switch-row {
+  display: flex;
+  align-items: center;
+  margin-top: 16rpx;
+}
+
+.fav-switch-label {
+  font-size: 24rpx;
+  color: #6b7280;
+  margin-left: 12rpx;
+}
+
+/* 中国食物库 */
+.cat-chips {
+  white-space: nowrap;
+  margin: 8rpx 0 16rpx;
+}
+
+.cat-chip {
+  display: inline-block;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 24rpx;
+  border-radius: 30rpx;
+  padding: 8rpx 26rpx;
+  margin-right: 14rpx;
+}
+
+.cat-chip.active {
+  background: #16a34a;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.food-lib {
+  margin-top: 8rpx;
+}
+
+.food-lib-item {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f1f2f1;
+}
+
+.food-lib-item:last-child {
+  border-bottom: none;
+}
+
+.food-lib-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .scan-result {
+    background: #14532d;
+  }
+
+  .scan-name,
+  .fav-name,
+  .food-name {
+    color: #e5e7eb;
+  }
+
+  .scan-img {
+    background: #1f2937;
+    border-color: #166534;
+  }
+
+  .cat-chip {
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .preset-box {
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .fav-item,
+  .food-lib-item {
+    border-bottom-color: #374151;
+  }
+}

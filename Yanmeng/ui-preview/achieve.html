@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:375px; background:#f4f7f5; font-family:'Microsoft YaHei','PingFang SC',sans-serif; color:#1f2937; font-size:14px; line-height:1.5; }
+.page { padding-bottom:30px; }
+.card { background:#fff; border-radius:12px; padding:14px; margin:10px 12px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+.card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.card-title { font-size:15px; font-weight:600; }
+.tip { font-size:12px; color:#9ca3af; margin-top:6px; }
+.empty { color:#c4c9c8; font-size:12px; text-align:center; padding:8px 0; }
+.count-row { display:flex; align-items:baseline; }
+.big { font-size:28px; font-weight:700; color:#16a34a; }
+.small { font-size:13px; color:#9ca3af; margin-left:6px; }
+.progress { height:8px; background:#e5e7eb; border-radius:4px; margin-top:8px; overflow:hidden; }
+.progress-in { height:100%; background:linear-gradient(135deg,#16a34a,#22c55e); border-radius:4px; }
+.badge-grid { display:flex; flex-wrap:wrap; }
+.badge { width:33.33%; text-align:center; padding:10px 4px; }
+.badge-ico { width:48px; height:48px; line-height:48px; font-size:26px; border-radius:50%; background:#dcfce7; margin:0 auto; }
+.badge.locked .badge-ico { background:#f3f4f6; filter:grayscale(1); opacity:.55; }
+.badge-name { font-size:12px; font-weight:600; color:#374151; margin-top:6px; }
+.badge-desc { font-size:10px; color:#9ca3af; margin-top:2px; line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="card">
+    <div class="card-head"><span class="card-title">🏆 成就勋章</span></div>
+    <div class="count-row"><span class="big">7</span><span class="small"> / 19 已解锁 · 37%</span></div>
+    <div class="progress"><div class="progress-in" style="width:37%"></div></div>
+    <div class="tip">坚持打卡和记录，解锁更多勋章</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="card-title">✅ 已获得</span></div>
+    <div class="badge-grid">
+      <div class="badge"><div class="badge-ico">🎯</div><div class="badge-name">首日打卡</div><div class="badge-desc">完成第一次每日打卡</div></div>
+      <div class="badge"><div class="badge-ico">🔥</div><div class="badge-name">连续3天</div><div class="badge-desc">连续打卡 3 天</div></div>
+      <div class="badge"><div class="badge-ico">⚖️</div><div class="badge-name">称重4周</div><div class="badge-desc">记录满 4 周体重</div></div>
+      <div class="badge"><div class="badge-ico">📉</div><div class="badge-name">减重5kg</div><div class="badge-desc">累计减重 5 kg</div></div>
+      <div class="badge"><div class="badge-ico">🔥</div><div class="badge-name">记录7天热量</div><div class="badge-desc">累计 7 天记录食物热量</div></div>
+      <div class="badge"><div class="badge-ico">💧</div><div class="badge-name">喝水7天</div><div class="badge-desc">累计 7 天喝够 2L 水</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><span class="card-title">🔒 未解锁</span></div>
+    <div class="badge-grid">
+      <div class="badge locked"><div class="badge-ico">🔥</div><div class="badge-name">连续7天</div><div class="badge-desc">连续打卡 7 天</div></div>
+      <div class="badge locked"><div class="badge-ico">⚡</div><div class="badge-name">连续21天</div><div class="badge-desc">连续打卡 21 天，习惯已养成</div></div>
+      <div class="badge locked"><div class="badge-ico">📅</div><div class="badge-name">打卡30天</div><div class="badge-desc">累计打卡 30 天</div></div>
+      <div class="badge locked"><div class="badge-ico">📉</div><div class="badge-name">减重10kg</div><div class="badge-desc">累计减重 10 kg</div></div>
+      <div class="badge locked"><div class="badge-ico">🏆</div><div class="badge-name">减重20kg</div><div class="badge-desc">累计减重 20 kg</div></div>
+      <div class="badge locked"><div class="badge-ico">🚪</div><div class="badge-name">告别肥胖</div><div class="badge-desc">BMI 降到 30 以下</div></div>
+      <div class="badge locked"><div class="badge-ico">✅</div><div class="badge-name">热量达标7天</div><div class="badge-desc">累计 7 天热量不超标</div></div>
+      <div class="badge locked"><div class="badge-ico">🚶</div><div class="badge-name">万步7天</div><div class="badge-desc">累计 7 天走够 8000 步</div></div>
+      <div class="badge locked"><div class="badge-ico">🏃</div><div class="badge-name">运动600分钟</div><div class="badge-desc">累计运动 600 分钟</div></div>
+      <div class="badge locked"><div class="badge-ico">💪</div><div class="badge-name">运动3000分钟</div><div class="badge-desc">累计运动 3000 分钟</div></div>
+      <div class="badge locked"><div class="badge-ico">💰</div><div class="badge-name">预算达人</div><div class="badge-desc">累计 30 天花费不超预算</div></div>
+      <div class="badge locked"><div class="badge-ico">🍱</div><div class="badge-name">记录100餐</div><div class="badge-desc">累计记录 100 次食物</div></div>
+      <div class="badge locked"><div class="badge-ico">👑</div><div class="badge-name">达成目标</div><div class="badge-desc">达到目标体重</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

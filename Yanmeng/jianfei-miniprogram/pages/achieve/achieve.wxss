@@ -1,0 +1,85 @@
+.count-row {
+  display: flex;
+  align-items: baseline;
+}
+
+.big {
+  font-size: 56rpx;
+  font-weight: 700;
+  color: #16a34a;
+}
+
+.small {
+  font-size: 26rpx;
+  color: #9ca3af;
+  margin-left: 12rpx;
+}
+
+.progress {
+  height: 16rpx;
+  background: #e5e7eb;
+  border-radius: 8rpx;
+  margin-top: 16rpx;
+  overflow: hidden;
+}
+
+.progress-in {
+  height: 100%;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  border-radius: 8rpx;
+}
+
+.badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.badge {
+  width: 33.33%;
+  text-align: center;
+  padding: 20rpx 8rpx;
+  box-sizing: border-box;
+}
+
+.badge-ico {
+  width: 96rpx;
+  height: 96rpx;
+  line-height: 96rpx;
+  font-size: 52rpx;
+  border-radius: 50%;
+  background: #dcfce7;
+  margin: 0 auto;
+}
+
+.badge.locked .badge-ico {
+  background: #f3f4f6;
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
+.badge-name {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: #374151;
+  margin-top: 12rpx;
+}
+
+.badge-desc {
+  font-size: 20rpx;
+  color: #9ca3af;
+  margin-top: 4rpx;
+  line-height: 1.5;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .badge.locked .badge-ico {
+    background: #374151;
+  }
+  .badge-name {
+    color: #e5e7eb;
+  }
+  .progress {
+    background: #374151;
+  }
+}

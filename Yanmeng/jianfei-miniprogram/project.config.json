@@ -1,0 +1,20 @@
+{
+  "compileType": "miniprogram",
+  "libVersion": "3.4.0",
+  "appid": "wx6882ac9f972953c1",
+  "projectname": "减重打卡",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "urlCheck": true,
+    "coverView": true,
+    "ignoreUploadUnusedFiles": true
+  },
+  "condition": {},
+  "editorSetting": {
+    "tabIndent": "insertSpaces",
+    "tabSize": 2
+  }
+}

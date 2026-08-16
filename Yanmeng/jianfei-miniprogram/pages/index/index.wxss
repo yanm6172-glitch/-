@@ -1,0 +1,275 @@
+/* 主卡 */
+.hero {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  box-shadow: 0 8rpx 24rpx rgba(22, 163, 74, 0.25);
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.hero-main .hero-num {
+  font-size: 64rpx;
+  font-weight: 700;
+}
+
+.hero-unit {
+  font-size: 26rpx;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-left: 6rpx;
+}
+
+.hero-main .hero-label {
+  font-size: 24rpx;
+  opacity: 0.85;
+  margin-top: 4rpx;
+}
+
+.hero-chips {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.hero-chips .chip {
+  margin: 0 0 10rpx 0;
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 22rpx;
+  border-radius: 20rpx;
+  padding: 4rpx 16rpx;
+}
+
+.hero-row {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-top: 24rpx;
+}
+
+.hero-item {
+  flex: 1;
+}
+
+.hero-item .hero-num {
+  font-size: 40rpx;
+  font-weight: 700;
+}
+
+.hero-item .hero-label {
+  font-size: 22rpx;
+  opacity: 0.85;
+  margin-top: 6rpx;
+}
+
+.hero-progress {
+  height: 16rpx;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 8rpx;
+  margin-top: 20rpx;
+  overflow: hidden;
+}
+
+.hero-progress-in {
+  height: 100%;
+  background: #ffffff;
+  border-radius: 8rpx;
+}
+
+.hero-tip {
+  font-size: 22rpx;
+  opacity: 0.9;
+  margin-top: 12rpx;
+}
+
+.hero-link {
+  font-size: 22rpx;
+  opacity: 0.95;
+  margin-top: 10rpx;
+  text-align: right;
+  text-decoration: underline;
+}
+
+/* 喝水 */
+.water-row {
+  display: flex;
+  margin: 16rpx 0;
+}
+
+.water-block {
+  flex: 1;
+  height: 48rpx;
+  background: #e5e7eb;
+  border-radius: 10rpx;
+  margin-right: 10rpx;
+}
+
+.water-block:last-child {
+  margin-right: 0;
+}
+
+.water-block.full {
+  background: #16a34a;
+}
+
+.tip-inline {
+  font-size: 24rpx;
+  color: #9ca3af;
+  align-self: center;
+}
+
+/* 211 计数器 */
+.counter-row {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+  border-bottom: 1rpx solid #f1f2f1;
+}
+
+.counter-row:last-of-type {
+  border-bottom: none;
+}
+
+.counter-label {
+  flex: 1;
+  font-size: 26rpx;
+}
+
+.counter-btn {
+  width: 52rpx;
+  height: 52rpx;
+  line-height: 48rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 30rpx;
+  margin: 0 10rpx;
+}
+
+.counter-btn:active {
+  background: #dcfce7;
+}
+
+.counter-val {
+  width: 44rpx;
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  color: #16a34a;
+}
+
+/* 饮食记录 */
+.meal-add {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
+
+.meal-picker {
+  background: #f3f4f6;
+  border-radius: 14rpx;
+  padding: 14rpx 20rpx;
+  font-size: 26rpx;
+  margin-right: 12rpx;
+  white-space: nowrap;
+}
+
+.meal-input {
+  margin-right: 12rpx;
+  flex: 1;
+}
+
+.meal-list {
+  margin-top: 16rpx;
+}
+
+.meal-text {
+  flex: 1;
+  font-size: 26rpx;
+}
+
+/* 热量入口 */
+.entry-card {
+  padding: 8rpx 28rpx;
+}
+
+.entry-card .entry-row {
+  border-bottom: none;
+}
+
+.entry-card .cal-progress {
+  margin-top: 10rpx;
+  max-width: 440rpx;
+}
+
+/* 热量条 */
+.cal-progress {
+  height: 16rpx;
+  background: #e5e7eb;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin-top: 4rpx;
+}
+
+.cal-progress-in {
+  height: 100%;
+  background: #16a34a;
+  border-radius: 8rpx;
+}
+
+.cal-progress-in.over {
+  background: #ef4444;
+}
+
+/* 打卡按钮 */
+.checkin-btn {
+  margin: 32rpx 24rpx 8rpx;
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 48rpx;
+  padding: 8rpx 0;
+}
+
+.score-tip {
+  text-align: center;
+  color: #16a34a;
+  font-size: 26rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 深色模式 */
+@media (prefers-color-scheme: dark) {
+  .water-block {
+    background: #374151;
+  }
+
+  .counter-row {
+    border-bottom-color: #374151;
+  }
+
+  .counter-btn {
+    background: #374151;
+    color: #e5e7eb;
+  }
+
+  .counter-label,
+  .meal-text {
+    color: #e5e7eb;
+  }
+
+  .meal-picker {
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  .cal-progress {
+    background: #374151;
+  }
+}

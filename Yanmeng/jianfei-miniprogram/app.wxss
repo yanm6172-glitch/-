@@ -1,0 +1,361 @@
+/* 全局样式 */
+page {
+  background: #f4f7f5;
+  font-size: 28rpx;
+  color: #1f2937;
+  padding-bottom: 60rpx;
+  line-height: 1.5;
+}
+
+/* 卡片 */
+.card {
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 28rpx;
+  margin: 20rpx 24rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.04);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.card-num {
+  font-size: 28rpx;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.card-num.ok {
+  color: #16a34a;
+}
+
+.card-num.over {
+  color: #ef4444;
+}
+
+.card-num.warn {
+  color: #f59e0b;
+}
+
+/* 布局 */
+.row {
+  display: flex;
+  align-items: center;
+  margin: 14rpx 0;
+  flex-wrap: wrap;
+}
+
+/* WXSS 不支持 * 通配选择器，子元素间距用显式类型列出 */
+.row > view,
+.row > button,
+.row > text,
+.row > input,
+.row > picker,
+.row > switch {
+  margin-right: 16rpx;
+  margin-bottom: 8rpx;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  background: #f3f4f6;
+  border-radius: 14rpx;
+  padding: 14rpx 20rpx;
+  font-size: 26rpx;
+  height: 68rpx;
+  box-sizing: border-box;
+}
+
+.tip {
+  font-size: 24rpx;
+  color: #9ca3af;
+  margin-top: 8rpx;
+}
+
+.empty {
+  color: #c4c9c8;
+  font-size: 24rpx;
+  text-align: center;
+  padding: 16rpx 0;
+}
+
+.tag {
+  display: inline-block;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 20rpx;
+  border-radius: 8rpx;
+  padding: 2rpx 12rpx;
+  margin-right: 12rpx;
+}
+
+.del {
+  color: #9ca3af;
+  font-size: 26rpx;
+  padding: 0 8rpx;
+}
+
+/* 按钮（统一胶囊风） */
+button {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: #ffffff;
+  border-radius: 999rpx;
+  font-size: 26rpx;
+  font-weight: 500;
+  margin: 0;
+  box-shadow: 0 6rpx 16rpx rgba(22, 163, 74, 0.22);
+  transition: transform 0.1s ease;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+button::after {
+  border: none;
+}
+
+button[disabled] {
+  opacity: 0.6;
+  color: #ffffff;
+}
+
+button[plain] {
+  background: #f3f4f6;
+  color: #374151;
+  box-shadow: none;
+}
+
+.btn-gray {
+  background: #f3f4f6;
+  color: #374151;
+  box-shadow: none;
+}
+
+/* 入口行（图标 + 标题 + 箭头，可点击跳转） */
+.entry-list {
+  margin-top: 4rpx;
+}
+
+.entry-row {
+  display: flex;
+  align-items: center;
+  padding: 22rpx 4rpx;
+  border-bottom: 1rpx solid #f1f2f1;
+}
+
+.entry-row:last-child {
+  border-bottom: none;
+}
+
+.entry-row:active {
+  background: #f9fafb;
+}
+
+.entry-ico {
+  width: 76rpx;
+  height: 76rpx;
+  line-height: 76rpx;
+  text-align: center;
+  font-size: 36rpx;
+  border-radius: 22rpx;
+  background: #dcfce7;
+  margin-right: 20rpx;
+  flex-shrink: 0;
+}
+
+.entry-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.entry-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.entry-sub {
+  font-size: 22rpx;
+  color: #9ca3af;
+  margin-top: 4rpx;
+  line-height: 1.4;
+}
+
+.entry-arrow {
+  color: #c4c9c8;
+  font-size: 32rpx;
+  margin-left: 12rpx;
+  flex-shrink: 0;
+}
+
+.entry-badge {
+  background: #ef4444;
+  color: #ffffff;
+  font-size: 18rpx;
+  border-radius: 16rpx;
+  padding: 0 10rpx;
+  margin-left: 10rpx;
+  flex-shrink: 0;
+}
+
+/* 列表条目 */
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 0;
+  border-bottom: 1rpx solid #f1f2f1;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+/* 智能建议条目 */
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 10rpx 0;
+}
+
+.tip-dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #16a34a;
+  margin: 14rpx 16rpx 0 0;
+  flex-shrink: 0;
+}
+
+.tip-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #374151;
+  line-height: 1.6;
+}
+
+/* 徽章 */
+.chip {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-size: 22rpx;
+  border-radius: 20rpx;
+  padding: 4rpx 16rpx;
+  margin-left: 10rpx;
+}
+
+/* 新手引导 */
+.guide-step {
+  display: flex;
+  align-items: center;
+  padding: 12rpx 0;
+}
+
+.step-num {
+  width: 44rpx;
+  height: 44rpx;
+  line-height: 44rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 24rpx;
+  font-weight: 700;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+}
+
+.step-text {
+  flex: 1;
+  font-size: 26rpx;
+  color: #374151;
+}
+
+/* ===== 深色模式（跟随系统） ===== */
+@media (prefers-color-scheme: dark) {
+  page {
+    background: #111827;
+    color: #e5e7eb;
+  }
+
+  .card {
+    background: #1f2937;
+    box-shadow: none;
+  }
+
+  .card-title {
+    color: #e5e7eb;
+  }
+
+  .tip {
+    color: #9ca3af;
+  }
+
+  .empty {
+    color: #6b7280;
+  }
+
+  .input {
+    background: #374151;
+    color: #d1d5db;
+  }
+
+  button[plain],
+  .btn-gray {
+    background: #374151;
+    color: #e5e7eb;
+  }
+
+  .tag {
+    background: #14532d;
+    color: #86efac;
+  }
+
+  .entry-row {
+    border-bottom-color: #374151;
+  }
+
+  .entry-row:active {
+    background: #111827;
+  }
+
+  .entry-ico {
+    background: #14532d;
+  }
+
+  .entry-title {
+    color: #e5e7eb;
+  }
+
+  .list-item {
+    border-bottom-color: #374151;
+  }
+
+  .tip-text {
+    color: #d1d5db;
+  }
+
+  .step-num {
+    background: #14532d;
+    color: #86efac;
+  }
+
+  .step-text {
+    color: #d1d5db;
+  }
+}

@@ -1,0 +1,33 @@
+
+\makeatletter
+\let\@oldaddcontentsline\addcontentsline
+\renewcommand{\addcontentsline}[3]{}
+\section*{附录}
+\let\addcontentsline\@oldaddcontentsline
+\makeatother
+
+\begin{table}[H]
+  \centering
+  \caption{附件说明表}
+  \label{tab:appendix}
+  \renewcommand{\arraystretch}{1.2}
+  \begin{tabularx}{\textwidth}{LX}
+    \toprule
+    文件 & 说明 \\
+    \midrule
+    问题一\_单颗粒导通判断.py & 问题一求解代码（单颗粒导通判定） \\
+    问题二\_多颗粒蒙特卡洛.py & 问题二求解代码（多颗粒蒙特卡洛模拟） \\
+    问题三\_最小填充率搜索.py & 问题三求解代码（二分搜索最小填充率） \\
+    问题四\_双金属成本优化.py & 问题四求解代码（双金属成本优化） \\
+    core\_geometry.py & 核心几何算法模块（距离计算、连通判定） \\
+    附件.xlsx（附件1） & 12个金属A颗粒的端点坐标 \\
+    附件.xlsx（附件2） & 49个金属A颗粒的端点坐标 \\
+    附件.xlsx（附件3） & 535个金属A颗粒的端点坐标 \\
+    求解计划.md & 完整求解计划文档 \\
+    问题一判定结果.csv & 12个颗粒的导通判定详细结果 \\
+    问题二结果汇总.csv & 各填充率蒙特卡洛模拟结果 \\
+    问题三搜索结果.csv & 二分搜索过程与最小填充率结果 \\
+    问题四最优配置.csv & 双金属成本优化最优方案 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

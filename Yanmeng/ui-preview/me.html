@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { width:375px; background:#f4f7f5; font-family:'Microsoft YaHei','PingFang SC',sans-serif; color:#1f2937; font-size:14px; line-height:1.5; }
+.page { padding-bottom:30px; }
+.card { background:#fff; border-radius:12px; padding:14px; margin:10px 12px; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+.card-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.card-title { font-size:15px; font-weight:600; }
+.card-num { font-size:14px; color:#16a34a; font-weight:600; }
+.card-num.warn { color:#f59e0b; }
+.tip { font-size:12px; color:#9ca3af; margin-top:4px; }
+.btn { display:inline-block; background:#16a34a; color:#fff; border-radius:6px; font-size:12px; padding:3px 14px; line-height:2.1; }
+.btn.gray { background:#f3f4f6; color:#374151; }
+.input { flex:1; background:#f3f4f6; border-radius:7px; padding:7px 10px; font-size:12px; color:#9ca3af; min-width:0; }
+.row { display:flex; align-items:center; margin:7px 0; flex-wrap:wrap; gap:8px; }
+.input-row { display:flex; align-items:center; gap:8px; margin:7px 0; }
+.form-row { display:flex; align-items:center; padding:6px 0; }
+.form-label { width:100px; font-size:13px; color:#374151; }
+.form-row .input { flex:1; }
+.save-btn { display:block; text-align:center; margin-top:12px; background:linear-gradient(135deg,#16a34a,#22c55e); color:#fff; font-weight:600; border-radius:8px; padding:8px 0; }
+.rule-item { font-size:13px; padding:7px 0; border-bottom:1px solid #f1f2f1; line-height:1.6; }
+.rule-item:last-child { border-bottom:none; }
+.list-item { display:flex; align-items:center; padding:7px 0; border-bottom:1px solid #f1f2f1; }
+.list-item:last-child { border-bottom:none; }
+.fam-name { flex:1; font-size:13px; font-weight:500; }
+.fam-status { font-size:12px; color:#16a34a; margin-right:8px; }
+.fam-cal { font-size:11px; color:#9ca3af; }
+.remind-row { display:flex; align-items:center; padding:6px 0; }
+.remind-label { width:110px; font-size:13px; color:#374151; }
+.time-box { flex:1; text-align:center; background:#f3f4f6; border-radius:7px; padding:5px 4px; font-size:13px; margin-right:6px; }
+.sw { width:40px; height:22px; border-radius:11px; background:#16a34a; position:relative; display:inline-block; flex-shrink:0; }
+.sw::after { content:''; position:absolute; width:18px; height:18px; border-radius:50%; background:#fff; top:2px; right:2px; }
+.entry-row { display:flex; align-items:center; padding:11px 2px; border-bottom:1px solid #f1f2f1; }
+.entry-row:last-child { border-bottom:none; }
+.entry-ico { width:38px; height:38px; line-height:38px; text-align:center; font-size:18px; border-radius:11px; background:#dcfce7; margin-right:10px; flex-shrink:0; }
+.entry-main { flex:1; }
+.entry-title { font-size:14px; font-weight:600; }
+.entry-sub { font-size:11px; color:#9ca3af; margin-top:2px; }
+.entry-arrow { color:#c4c9c8; font-size:16px; margin-left:6px; }
+.entry-badge { background:#ef4444; color:#fff; font-size:9px; border-radius:8px; padding:0 5px; margin-left:6px; }
+.btn { border-radius:999px; box-shadow:0 3px 8px rgba(22,163,74,.22); }
+.btn.gray { box-shadow:none; }
+.profile-top { display:flex; align-items:center; }
+.avatar { width:52px; height:52px; border-radius:50%; background:#dcfce7; line-height:52px; text-align:center; font-size:28px; flex-shrink:0; }
+.profile-info { flex:1; margin-left:12px; }
+.profile-name { font-size:16px; font-weight:600; }
+.profile-sub { font-size:11px; color:#9ca3af; margin-top:3px; }
+.profile-edit { font-size:12px; color:#16a34a; }
+.profile-footer { margin-top:8px; text-align:right; }
+.logout-btn { font-size:12px; color:#ef4444; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- 账号资料卡 -->
+  <div class="card">
+    <div class="profile-top">
+      <div class="avatar">👤</div>
+      <div class="profile-info">
+        <div class="profile-name">颜萌</div>
+        <div class="profile-sub">微信账号 · 已登录</div>
+      </div>
+      <span class="profile-edit">编辑</span>
+    </div>
+    <div class="profile-footer"><span class="logout-btn">退出登录</span></div>
+  </div>
+
+  <!-- 目标设置 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">🎯 目标设置</span></div>
+    <div class="form-row"><span class="form-label">身高 (cm)</span><span class="input">168</span></div>
+    <div class="form-row"><span class="form-label">初始体重 (kg)</span><span class="input">100</span></div>
+    <div class="form-row"><span class="form-label">目标体重 (kg)</span><span class="input">65</span></div>
+    <div class="form-row"><span class="form-label">每周目标 (kg)</span><span class="input">0.75 ▾</span></div>
+    <div class="form-row"><span class="form-label">每日预算 (元)</span><span class="input">42</span></div>
+    <div class="form-row"><span class="form-label">每日热量 (千卡)</span><span class="input">1500</span></div>
+    <div class="save-btn">保存设置</div>
+    <div class="tip">从 2026-08-17 开始记录 · 进度按「初始体重 → 目标体重」计算</div>
+  </div>
+
+  <!-- 云同步 -->
+  <div class="card">
+    <div class="card-head">
+      <span class="card-title">☁️ 云同步</span>
+      <span class="card-num">已开启</span>
+    </div>
+    <div class="tip">上次同步：8/17 21:30。开启后数据自动备份到云端，换手机不丢。</div>
+    <div class="row"><span class="btn">立即同步</span></div>
+  </div>
+
+  <!-- 家人监督 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">👨‍👩‍👧 家人监督</span></div>
+    <div class="input-row">
+      <span class="input">颜萌</span>
+      <span class="btn">保存</span>
+    </div>
+    <div class="row">
+      <span class="btn">创建家庭组</span>
+      <span class="btn gray">查看家人</span>
+    </div>
+    <div class="input-row">
+      <span class="input">输入家人给的邀请码</span>
+      <span class="btn">加入</span>
+    </div>
+    <div>
+      <div class="list-item"><span class="fam-name">颜萌（我）</span><span class="fam-status">✅83分</span><span class="fam-cal">955千卡</span></div>
+      <div class="list-item"><span class="fam-name">妈妈</span><span class="fam-status" style="color:#f59e0b">❌未打卡</span><span class="fam-cal">650千卡</span></div>
+    </div>
+  </div>
+
+  <!-- 提醒设置 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">⏰ 打卡提醒</span></div>
+    <div class="remind-row">
+      <span class="remind-label">💧 喝水提醒</span>
+      <span class="sw" style="margin-right:6px"></span>
+      <span class="time-box">15:00</span>
+    </div>
+    <div class="remind-row">
+      <span class="remind-label">⚖️ 称重提醒</span>
+      <span class="sw" style="margin-right:6px"></span>
+      <span class="time-box">周一</span>
+      <span class="time-box">08:00</span>
+    </div>
+    <div class="save-btn">订阅提醒</div>
+    <div class="tip">个人主体为「一次性订阅」：每次授权只发一条通知。每天打开小程序时会弹窗提醒你重新订阅，点一下即可。</div>
+  </div>
+
+  <!-- 更多功能 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">🎁 更多功能</span></div>
+    <div class="entry-row">
+      <div class="entry-ico">🏆</div>
+      <div class="entry-main">
+        <div class="entry-title">成就勋章</div>
+        <div class="entry-sub">19 枚勋章，解锁有庆祝</div>
+      </div>
+      <span class="entry-arrow">›</span>
+    </div>
+    <div class="entry-row">
+      <div class="entry-ico">📬</div>
+      <div class="entry-main">
+        <div class="entry-title">消息中心</div>
+        <div class="entry-sub">打卡动态、里程碑、成就解锁记录</div>
+      </div>
+      <span class="entry-badge">2</span>
+      <span class="entry-arrow">›</span>
+    </div>
+  </div>
+
+  <!-- 规则速查 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">📜 减肥规则速查</span></div>
+    <div class="rule-item">🍜 螺蛳粉每周 ≤2 次：不加炸腐竹和花生，少喝汤</div>
+    <div class="rule-item">🧋 奶茶每周 ≤1 杯，点无糖或三分糖</div>
+    <div class="rule-item">☕ 咖啡改美式/黑咖，戒糖奶</div>
+    <div class="rule-item">🍗 炸鸡汉堡每周 ≤1 次，吃前先喝一杯水</div>
+    <div class="rule-item">🛒 零食先停一个月，馋了吃水果或煮鸡蛋</div>
+    <div class="rule-item">💧 每天喝水 2L，饭前一杯</div>
+    <div class="rule-item">🍱 每餐 211：2份蔬菜、1份蛋白质、1份主食</div>
+    <div class="rule-item">🚲 通勤骑行/快走；先别跑步跳绳，保护膝盖</div>
+    <div class="rule-item">⚖️ 每周称重1次，目标每周 -0.5~1 kg</div>
+    <div class="rule-item">💤 睡够7小时，熬夜更容易想吃螺蛳粉和奶茶</div>
+    <div class="rule-item">💰 每日预算 42 元，超了第二天扣回来</div>
+    <div class="rule-item">🔥 每天热量 1500 千卡，扫码记录每样食物</div>
+  </div>
+
+  <!-- 数据管理 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">🗑️ 数据管理</span></div>
+    <div class="btn gray">清除全部打卡数据</div>
+    <div class="tip">所有数据只保存在你的手机本地，换手机或删除小程序后数据会丢失（开启云同步除外）。</div>
+  </div>
+
+  <!-- 关于 -->
+  <div class="card">
+    <div class="card-head"><span class="card-title">ℹ️ 关于</span></div>
+    <div class="tip">减重打卡 v1.3.0</div>
+    <div class="tip">本小程序仅作打卡记录工具，内置内容为通用健康建议，不构成医疗建议。如有身体不适，请及时就医。</div>
+  </div>
+
+</div>
+</body>
+</html>

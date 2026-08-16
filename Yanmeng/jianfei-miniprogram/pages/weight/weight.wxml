@@ -1,0 +1,91 @@
+<view class="page">
+
+  <!-- 顶部概览 -->
+  <view class="card hero">
+    <view class="hero-row">
+      <view class="hero-item">
+        <view class="hero-num">{{latest ? latest.weight : '--'}}</view>
+        <view class="hero-label">当前 kg</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{bmi || '--'}}</view>
+        <view class="hero-label">BMI · {{bmiText}}</view>
+      </view>
+      <view class="hero-item">
+        <view class="hero-num">{{lost}}</view>
+        <view class="hero-label">已减 kg</view>
+      </view>
+    </view>
+    <view class="hero-progress">
+      <view class="hero-progress-in" style="width:{{pct}}%"></view>
+    </view>
+    <view class="hero-tip">从 {{settings.startWeight}}kg 到 {{settings.targetWeight}}kg · 已完成 {{pct}}% · 按每周 {{settings.weeklyGoal}}kg 预计还需 {{months}} 个月</view>
+  </view>
+
+  <!-- 达标预测 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">🔮 达标预测</text>
+    </view>
+    <view class="predict-text">{{predictText}}</view>
+    <view class="tip">每周称重 1 次，数据越多预测越准</view>
+  </view>
+
+  <!-- 记录体重 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">⚖️ 记录体重</text>
+    </view>
+    <view class="input-row">
+      <input
+        class="input"
+        type="digit"
+        placeholder="输入体重（kg），如 98.5"
+        value="{{input}}"
+        focus="{{focusInput}}"
+        bindinput="onInput"
+        bindconfirm="save"
+      />
+      <button size="mini" bindtap="save">保存</button>
+    </view>
+    <view class="tip">建议每周同一时间称一次：起床、空腹、上完厕所后。同一天重复记录会自动覆盖。保存后会有智能点评。</view>
+  </view>
+
+  <!-- 趋势图 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📉 体重趋势（最近14次）</text>
+    </view>
+    <view wx:if="{{chart.length > 0}}" class="chart-wrap">
+      <view class="bar-col" wx:for="{{chart}}" wx:key="label">
+        <text class="bar-val">{{item.value}}</text>
+        <view class="bar {{item.down ? 'down' : 'up'}}" style="height:{{item.h}}%;"></view>
+        <text class="bar-label">{{item.label}}</text>
+      </view>
+    </view>
+    <view wx:else class="empty">
+      <view>还没有体重记录</view>
+      <button size="mini" bindtap="focusFirst">记录第一次</button>
+    </view>
+    <view class="chart-legend">
+      <text class="lg green">■ 下降</text>
+      <text class="lg orange">■ 上升/持平</text>
+    </view>
+  </view>
+
+  <!-- 历史记录 -->
+  <view class="card">
+    <view class="card-head">
+      <text class="card-title">📋 历史记录</text>
+      <text class="clear-link" bindtap="clearAll">清空</text>
+    </view>
+    <view class="list-item" wx:for="{{list}}" wx:key="date">
+      <text class="h-date">{{item.label}}</text>
+      <text class="h-weight">{{item.weight}} kg</text>
+      <text class="h-delta {{item.delta > 0 ? 'bad' : 'good'}}">{{item.delta == null ? '' : (item.delta > 0 ? '+' + item.delta : item.delta)}}</text>
+      <text class="h-bmi">BMI {{item.bmi}}</text>
+    </view>
+    <view wx:if="{{list.length == 0}}" class="empty">暂无记录</view>
+  </view>
+
+</view>
