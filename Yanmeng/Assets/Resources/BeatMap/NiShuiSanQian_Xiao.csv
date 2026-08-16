@@ -1,0 +1,12 @@
+Type,BeginTime,EndTime,BeginIndex,EndIndex
+double,0.70,,1,
+flick,2.00,,4,
+tap,3.40,,2,
+double,4.80,,3,
+flick,6.10,,1,
+tap,7.50,,4,
+double,8.90,,2,
+flick,10.20,,3,
+tap,11.60,,1,
+double,12.90,,4,
+flick,14.20,,2,
