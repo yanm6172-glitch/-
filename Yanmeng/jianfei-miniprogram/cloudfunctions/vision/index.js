@@ -3,8 +3,15 @@ const https = require('https');
 
 cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
-// ⚠️ 智谱 AI 开放平台 https://open.bigmodel.cn 的 API Key（已配置）
-const API_KEY = '8cd8155c10ac4a0eb696abccce96e967.kE9yjf49163jOMCN';
+// ⚠️ 智谱 AI 开放平台 https://open.bigmodel.cn 的 API Key
+// 从 key.local.js 读取（该文件已被 .gitignore 排除，不会上传到 GitHub）
+// 部署云函数时，key.local.js 会随文件夹一起上传到云端，正常工作
+let LOCAL_KEY = '';
+try {
+  LOCAL_KEY = require('./key.local.js').key || '';
+} catch (e) {
+  LOCAL_KEY = '';
+}
 const API_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
 const MODEL = 'glm-4v-flash';
 
@@ -34,8 +41,8 @@ function postJson(url, headers, body) {
 exports.main = async (event) => {
   const fileID = event && event.fileID;
   if (!fileID) return { ok: false, msg: '缺少图片' };
-  const key = process.env.ZHIPU_KEY || API_KEY;
-  if (!key || key === 'YOUR_ZHIPU_KEY') return { ok: false, msg: '未配置 AI 密钥（cloudfunctions/vision/index.js 的 API_KEY）' };
+  const key = process.env.ZHIPU_KEY || LOCAL_KEY;
+  if (!key) return { ok: false, msg: '未配置 AI 密钥（请在 cloudfunctions/vision/key.local.js 中填写）' };
   try {
     const dl = await cloud.downloadFile({ fileID: fileID });
     const base64 = dl.fileContent.toString('base64');

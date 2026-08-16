@@ -1,0 +1,13 @@
+# 依赖与临时文件
+node_modules/
+*.zip
+# 开发者工具本地配置（含个人 AppID 本地设置，不提交）
+project.private.config.json
+# 密钥文件（绝不提交）
+cloudfunctions/vision/key.local.js
+key.local.js
+# 系统文件
+.DS_Store
+Thumbs.db
+# 日志
+*.log
